@@ -14,7 +14,11 @@ namespace Proyecto
 {
     public partial class frmCrudVentas : Form
     {
+        #region Variables globales
         string connectionString = ConfigurationManager.ConnectionStrings["cnn"].ConnectionString;
+
+        #endregion
+
         public frmCrudVentas()
         {
             InitializeComponent();
@@ -137,26 +141,7 @@ namespace Proyecto
                 MessageBox.Show("Venta eliminada correctamente");
             }
         }
-        private void CalcularTotal(object sender, EventArgs e)
-        {
-            try
-            {
-                if (decimal.TryParse(txtCantidad.Text, out decimal cantidad) &&
-                    decimal.TryParse(txtPrecioUnitario.Text, out decimal precio))
-                {
-                    decimal total = cantidad * precio;
-                    txtTotal.Text = total.ToString("C2"); // Formato de moneda
-                }
-                else
-                {
-                    txtTotal.Text = "$0.00";
-                }
-            }
-            catch
-            {
-                txtTotal.Text = "$0.00";
-            }
-        }
+       
         private void Button_MouseEnter(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -187,5 +172,58 @@ namespace Proyecto
             else if (btn == btnEliminar)
                 btn.BackColor = System.Drawing.Color.FromArgb(231, 76, 60);
         }
+        #region Elementos Ui
+        private void txtIdVenta_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCliente_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelFormulario_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtCantidad_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTotal_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPrecioUnitario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        #region Eventos de Botones
+        private void btnNuevo_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGuardar_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEditar_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnEliminar_Click_1(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
+        #endregion
     }
 }

@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datos\clsDaoProductos.cs" />
     <Compile Include="Datos\clsDaoUsuarios.cs" />
     <Compile Include="Datos\Producto.cs" />
     <Compile Include="Datos\Usuario.cs" />

@@ -75,6 +75,7 @@ namespace Proyecto
 
 
         #endregion
+
         #region Validaciones
 
         private bool ValidarTodo()
@@ -422,11 +423,9 @@ namespace Proyecto
 
         #endregion
 
-        #endregion
-
         private void dgvUsuarios_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return; 
+            if (e.RowIndex < 0) return;
 
             DataGridViewRow fila = dgvUsuarios.Rows[e.RowIndex];
 
@@ -446,5 +445,8 @@ namespace Proyecto
             btnEliminar.Enabled = true;
             btnGuardar.Enabled = false;
         }
+        #endregion
+
+
     }
 }

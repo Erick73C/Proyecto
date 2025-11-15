@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvVentas = new System.Windows.Forms.DataGridView();
             this.txtCliente = new System.Windows.Forms.TextBox();
-            this.txtCantidad = new System.Windows.Forms.TextBox();
-            this.txtPrecioUnitario = new System.Windows.Forms.TextBox();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.txtProducto = new System.Windows.Forms.TextBox();
             this.panelFormulario = new System.Windows.Forms.Panel();
+            this.txtCantidad = new System.Windows.Forms.TextBox();
             this.txtTotal = new System.Windows.Forms.TextBox();
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblFecha = new System.Windows.Forms.Label();
@@ -53,9 +53,24 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
+            this.errIdVenta = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errCliente = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errProduto = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errCantidad = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errPrecioUnitario = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errTotal = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errFecha = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtPrecioUnitario = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVentas)).BeginInit();
             this.panelFormulario.SuspendLayout();
             this.panelBotones.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errIdVenta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errCliente)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errProduto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errCantidad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errPrecioUnitario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errTotal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errFecha)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvVentas
@@ -114,30 +129,9 @@
             this.txtCliente.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtCliente.Location = new System.Drawing.Point(20, 140);
             this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(260, 30);
+            this.txtCliente.Size = new System.Drawing.Size(260, 25);
             this.txtCliente.TabIndex = 3;
-            // 
-            // txtCantidad
-            // 
-            this.txtCantidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.txtCantidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCantidad.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtCantidad.Location = new System.Drawing.Point(20, 260);
-            this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.Size = new System.Drawing.Size(260, 30);
-            this.txtCantidad.TabIndex = 4;
-            this.txtCantidad.TextChanged += new System.EventHandler(this.CalcularTotal);
-            // 
-            // txtPrecioUnitario
-            // 
-            this.txtPrecioUnitario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.txtPrecioUnitario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPrecioUnitario.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtPrecioUnitario.Location = new System.Drawing.Point(20, 320);
-            this.txtPrecioUnitario.Name = "txtPrecioUnitario";
-            this.txtPrecioUnitario.Size = new System.Drawing.Size(260, 30);
-            this.txtPrecioUnitario.TabIndex = 5;
-            this.txtPrecioUnitario.TextChanged += new System.EventHandler(this.CalcularTotal);
+            this.txtCliente.TextChanged += new System.EventHandler(this.txtCliente_TextChanged);
             // 
             // dtpFecha
             // 
@@ -145,7 +139,7 @@
             this.dtpFecha.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.dtpFecha.Location = new System.Drawing.Point(20, 440);
             this.dtpFecha.Name = "dtpFecha";
-            this.dtpFecha.Size = new System.Drawing.Size(260, 30);
+            this.dtpFecha.Size = new System.Drawing.Size(260, 25);
             this.dtpFecha.TabIndex = 6;
             // 
             // txtProducto
@@ -155,7 +149,7 @@
             this.txtProducto.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtProducto.Location = new System.Drawing.Point(20, 200);
             this.txtProducto.Name = "txtProducto";
-            this.txtProducto.Size = new System.Drawing.Size(260, 30);
+            this.txtProducto.Size = new System.Drawing.Size(260, 25);
             this.txtProducto.TabIndex = 7;
             // 
             // panelFormulario
@@ -163,6 +157,8 @@
             this.panelFormulario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panelFormulario.BackColor = System.Drawing.Color.White;
+            this.panelFormulario.Controls.Add(this.txtPrecioUnitario);
+            this.panelFormulario.Controls.Add(this.txtCantidad);
             this.panelFormulario.Controls.Add(this.txtTotal);
             this.panelFormulario.Controls.Add(this.lblTotal);
             this.panelFormulario.Controls.Add(this.lblFecha);
@@ -174,13 +170,23 @@
             this.panelFormulario.Controls.Add(this.txtIdVenta);
             this.panelFormulario.Controls.Add(this.txtCliente);
             this.panelFormulario.Controls.Add(this.txtProducto);
-            this.panelFormulario.Controls.Add(this.txtCantidad);
             this.panelFormulario.Controls.Add(this.dtpFecha);
-            this.panelFormulario.Controls.Add(this.txtPrecioUnitario);
             this.panelFormulario.Location = new System.Drawing.Point(27, 80);
             this.panelFormulario.Name = "panelFormulario";
             this.panelFormulario.Size = new System.Drawing.Size(300, 492);
             this.panelFormulario.TabIndex = 11;
+            this.panelFormulario.Paint += new System.Windows.Forms.PaintEventHandler(this.panelFormulario_Paint);
+            // 
+            // txtCantidad
+            // 
+            this.txtCantidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.txtCantidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCantidad.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtCantidad.Location = new System.Drawing.Point(20, 272);
+            this.txtCantidad.Name = "txtCantidad";
+            this.txtCantidad.Size = new System.Drawing.Size(260, 25);
+            this.txtCantidad.TabIndex = 16;
+            this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
             // 
             // txtTotal
             // 
@@ -191,8 +197,9 @@
             this.txtTotal.Location = new System.Drawing.Point(20, 380);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.ReadOnly = true;
-            this.txtTotal.Size = new System.Drawing.Size(260, 30);
+            this.txtTotal.Size = new System.Drawing.Size(260, 25);
             this.txtTotal.TabIndex = 15;
+            this.txtTotal.TextChanged += new System.EventHandler(this.txtTotal_TextChanged);
             // 
             // lblTotal
             // 
@@ -201,7 +208,7 @@
             this.lblTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblTotal.Location = new System.Drawing.Point(20, 360);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(48, 20);
+            this.lblTotal.Size = new System.Drawing.Size(37, 15);
             this.lblTotal.TabIndex = 14;
             this.lblTotal.Text = "Total:";
             // 
@@ -212,7 +219,7 @@
             this.lblFecha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblFecha.Location = new System.Drawing.Point(20, 420);
             this.lblFecha.Name = "lblFecha";
-            this.lblFecha.Size = new System.Drawing.Size(53, 20);
+            this.lblFecha.Size = new System.Drawing.Size(42, 15);
             this.lblFecha.TabIndex = 13;
             this.lblFecha.Text = "Fecha:";
             // 
@@ -223,7 +230,7 @@
             this.lblPrecioUnitario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblPrecioUnitario.Location = new System.Drawing.Point(20, 300);
             this.lblPrecioUnitario.Name = "lblPrecioUnitario";
-            this.lblPrecioUnitario.Size = new System.Drawing.Size(117, 20);
+            this.lblPrecioUnitario.Size = new System.Drawing.Size(93, 15);
             this.lblPrecioUnitario.TabIndex = 12;
             this.lblPrecioUnitario.Text = "Precio Unitario:";
             // 
@@ -234,7 +241,7 @@
             this.lblCantidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblCantidad.Location = new System.Drawing.Point(20, 240);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(75, 20);
+            this.lblCantidad.Size = new System.Drawing.Size(58, 15);
             this.lblCantidad.TabIndex = 11;
             this.lblCantidad.Text = "Cantidad:";
             // 
@@ -245,7 +252,7 @@
             this.lblProducto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblProducto.Location = new System.Drawing.Point(20, 180);
             this.lblProducto.Name = "lblProducto";
-            this.lblProducto.Size = new System.Drawing.Size(77, 20);
+            this.lblProducto.Size = new System.Drawing.Size(61, 15);
             this.lblProducto.TabIndex = 10;
             this.lblProducto.Text = "Producto:";
             // 
@@ -256,7 +263,7 @@
             this.lblCliente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblCliente.Location = new System.Drawing.Point(20, 120);
             this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(61, 20);
+            this.lblCliente.Size = new System.Drawing.Size(49, 15);
             this.lblCliente.TabIndex = 9;
             this.lblCliente.Text = "Cliente:";
             // 
@@ -267,7 +274,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label1.Location = new System.Drawing.Point(20, 60);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 20);
+            this.label1.Size = new System.Drawing.Size(58, 15);
             this.label1.TabIndex = 8;
             this.label1.Text = "ID Venta:";
             // 
@@ -279,8 +286,9 @@
             this.txtIdVenta.Location = new System.Drawing.Point(20, 80);
             this.txtIdVenta.Name = "txtIdVenta";
             this.txtIdVenta.ReadOnly = true;
-            this.txtIdVenta.Size = new System.Drawing.Size(260, 30);
+            this.txtIdVenta.Size = new System.Drawing.Size(260, 25);
             this.txtIdVenta.TabIndex = 2;
+            this.txtIdVenta.TextChanged += new System.EventHandler(this.txtIdVenta_TextChanged);
             // 
             // lblTitulo
             // 
@@ -289,7 +297,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblTitulo.Location = new System.Drawing.Point(20, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(239, 37);
+            this.lblTitulo.Size = new System.Drawing.Size(195, 30);
             this.lblTitulo.TabIndex = 12;
             this.lblTitulo.Text = "GESTIÓN VENTAS";
             // 
@@ -318,6 +326,7 @@
             this.btnNuevo.TabIndex = 0;
             this.btnNuevo.Text = "NUEVO";
             this.btnNuevo.UseVisualStyleBackColor = false;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click_1);
             // 
             // btnGuardar
             // 
@@ -331,6 +340,7 @@
             this.btnGuardar.TabIndex = 8;
             this.btnGuardar.Text = "GUARDAR";
             this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click_1);
             // 
             // btnEliminar
             // 
@@ -344,6 +354,7 @@
             this.btnEliminar.TabIndex = 10;
             this.btnEliminar.Text = "ELIMINAR";
             this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click_1);
             // 
             // btnEditar
             // 
@@ -357,13 +368,53 @@
             this.btnEditar.TabIndex = 9;
             this.btnEditar.Text = "EDITAR";
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click_1);
+            // 
+            // errIdVenta
+            // 
+            this.errIdVenta.ContainerControl = this;
+            // 
+            // errCliente
+            // 
+            this.errCliente.ContainerControl = this;
+            // 
+            // errProduto
+            // 
+            this.errProduto.ContainerControl = this;
+            // 
+            // errCantidad
+            // 
+            this.errCantidad.ContainerControl = this;
+            // 
+            // errPrecioUnitario
+            // 
+            this.errPrecioUnitario.ContainerControl = this;
+            // 
+            // errTotal
+            // 
+            this.errTotal.ContainerControl = this;
+            // 
+            // errFecha
+            // 
+            this.errFecha.ContainerControl = this;
+            // 
+            // txtPrecioUnitario
+            // 
+            this.txtPrecioUnitario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.txtPrecioUnitario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPrecioUnitario.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtPrecioUnitario.Location = new System.Drawing.Point(20, 332);
+            this.txtPrecioUnitario.Name = "txtPrecioUnitario";
+            this.txtPrecioUnitario.Size = new System.Drawing.Size(260, 25);
+            this.txtPrecioUnitario.TabIndex = 17;
+            this.txtPrecioUnitario.TextChanged += new System.EventHandler(this.txtPrecioUnitario_TextChanged);
             // 
             // frmCrudVentas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(998, 742);
+            this.ClientSize = new System.Drawing.Size(1000, 750);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.panelFormulario);
@@ -378,6 +429,13 @@
             this.panelFormulario.ResumeLayout(false);
             this.panelFormulario.PerformLayout();
             this.panelBotones.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errIdVenta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errCliente)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errProduto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errCantidad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errPrecioUnitario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errTotal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errFecha)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -386,8 +444,6 @@
         #endregion
         private System.Windows.Forms.DataGridView dgvVentas;
         private System.Windows.Forms.TextBox txtCliente;
-        private System.Windows.Forms.TextBox txtCantidad;
-        private System.Windows.Forms.TextBox txtPrecioUnitario;
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.TextBox txtProducto;
         private System.Windows.Forms.Panel panelFormulario;
@@ -406,5 +462,14 @@
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnEditar;
+        private System.Windows.Forms.ErrorProvider errIdVenta;
+        private System.Windows.Forms.ErrorProvider errCliente;
+        private System.Windows.Forms.ErrorProvider errProduto;
+        private System.Windows.Forms.ErrorProvider errCantidad;
+        private System.Windows.Forms.ErrorProvider errPrecioUnitario;
+        private System.Windows.Forms.ErrorProvider errTotal;
+        private System.Windows.Forms.ErrorProvider errFecha;
+        private System.Windows.Forms.TextBox txtCantidad;
+        private System.Windows.Forms.TextBox txtPrecioUnitario;
     }
 }
