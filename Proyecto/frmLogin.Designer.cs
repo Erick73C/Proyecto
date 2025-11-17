@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelLogin = new System.Windows.Forms.Panel();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtContrasenia = new System.Windows.Forms.TextBox();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.errpass = new System.Windows.Forms.ErrorProvider(this.components);
@@ -51,17 +51,31 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelLogin.BackColor = System.Drawing.Color.White;
             this.panelLogin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelLogin.Controls.Add(this.txtUsuario);
             this.panelLogin.Controls.Add(this.btnRegistrar);
             this.panelLogin.Controls.Add(this.lblTitulo);
             this.panelLogin.Controls.Add(this.label1);
             this.panelLogin.Controls.Add(this.label2);
-            this.panelLogin.Controls.Add(this.txtNombre);
             this.panelLogin.Controls.Add(this.txtContrasenia);
             this.panelLogin.Controls.Add(this.btnIngresar);
             this.panelLogin.Location = new System.Drawing.Point(225, 100);
             this.panelLogin.Name = "panelLogin";
             this.panelLogin.Size = new System.Drawing.Size(350, 250);
             this.panelLogin.TabIndex = 0;
+            // 
+            // txtUsuario
+            // 
+            this.txtUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtUsuario.Location = new System.Drawing.Point(150, 80);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(150, 25);
+            this.txtUsuario.TabIndex = 3;
+            this.txtUsuario.UseSystemPasswordChar = true;
+            this.txtUsuario.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
             // 
             // btnRegistrar
             // 
@@ -122,19 +136,6 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Contraseña:";
             // 
-            // txtNombre
-            // 
-            this.txtNombre.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtNombre.Location = new System.Drawing.Point(150, 78);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(150, 25);
-            this.txtNombre.TabIndex = 3;
-            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
-            // 
             // txtContrasenia
             // 
             this.txtContrasenia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -144,6 +145,7 @@
             this.txtContrasenia.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtContrasenia.Location = new System.Drawing.Point(150, 128);
             this.txtContrasenia.Name = "txtContrasenia";
+            this.txtContrasenia.PasswordChar = '*';
             this.txtContrasenia.Size = new System.Drawing.Size(150, 25);
             this.txtContrasenia.TabIndex = 4;
             this.txtContrasenia.UseSystemPasswordChar = true;
@@ -183,6 +185,7 @@
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema - Login";
+            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.panelLogin.ResumeLayout(false);
             this.panelLogin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errpass)).EndInit();
@@ -192,8 +195,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtContrasenia;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -203,5 +204,6 @@
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.ErrorProvider errpass;
         private System.Windows.Forms.ErrorProvider errUsuario;
+        private System.Windows.Forms.TextBox txtUsuario;
     }
 }

@@ -102,8 +102,9 @@
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlMenu.Location = new System.Drawing.Point(0, 0);
             this.pnlMenu.Name = "pnlMenu";
-            this.pnlMenu.Size = new System.Drawing.Size(200, 611);
+            this.pnlMenu.Size = new System.Drawing.Size(194, 611);
             this.pnlMenu.TabIndex = 3;
+            this.pnlMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMenu_Paint);
             // 
             // btnCerrarSesion
             // 
@@ -129,7 +130,7 @@
             this.lblTituloMenu.ForeColor = System.Drawing.Color.White;
             this.lblTituloMenu.Location = new System.Drawing.Point(0, 0);
             this.lblTituloMenu.Name = "lblTituloMenu";
-            this.lblTituloMenu.Size = new System.Drawing.Size(200, 80);
+            this.lblTituloMenu.Size = new System.Drawing.Size(194, 80);
             this.lblTituloMenu.TabIndex = 3;
             this.lblTituloMenu.Text = "SISTEMA";
             this.lblTituloMenu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -139,17 +140,18 @@
             this.pnlContenedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.pnlContenedor.Controls.Add(this.lblBienvenida);
             this.pnlContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContenedor.Location = new System.Drawing.Point(200, 0);
+            this.pnlContenedor.Location = new System.Drawing.Point(194, 0);
             this.pnlContenedor.Name = "pnlContenedor";
-            this.pnlContenedor.Size = new System.Drawing.Size(1023, 611);
-            this.pnlContenedor.TabIndex = 4;
+            this.pnlContenedor.Size = new System.Drawing.Size(1029, 611);
+            this.pnlContenedor.TabIndex = 5;
+            this.pnlContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlContenedor_Paint_1);
             // 
             // lblBienvenida
             // 
             this.lblBienvenida.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblBienvenida.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblBienvenida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblBienvenida.Location = new System.Drawing.Point(0, 250);
+            this.lblBienvenida.Location = new System.Drawing.Point(3, 250);
             this.lblBienvenida.Name = "lblBienvenida";
             this.lblBienvenida.Size = new System.Drawing.Size(1023, 100);
             this.lblBienvenida.TabIndex = 0;
@@ -158,7 +160,7 @@
             // 
             // frmMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1223, 611);
@@ -171,6 +173,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema Principal";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.frmMenu_Load);
             this.pnlMenu.ResumeLayout(false);
             this.pnlContenedor.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -183,9 +186,9 @@
         private System.Windows.Forms.Button btnCrud2;
         private System.Windows.Forms.Button btnCrud3;
         private System.Windows.Forms.Panel pnlMenu;
-        private System.Windows.Forms.Panel pnlContenedor;
         private System.Windows.Forms.Label lblTituloMenu;
         private System.Windows.Forms.Button btnCerrarSesion;
+        private System.Windows.Forms.Panel pnlContenedor;
         private System.Windows.Forms.Label lblBienvenida;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Proyecto.Datos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +13,27 @@ namespace Proyecto
 {
     public partial class frmMenu : Form
     {
-        public frmMenu()
+
+        #region Variables Globales
+        clsDaoUsuarios dao = new clsDaoUsuarios();
+        private Usuario usuarioActual;
+
+        #endregion
+
+        #region Metodos auxiliares
+
+        public frmMenu(Usuario usuario)
         {
             InitializeComponent();
+            usuarioActual = usuario;
         }
+
+        private void frmMenu_Load(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
+
         private void AbrirFormulario(Form formHijo)
         {
             // Limpiar el panel contenedor
@@ -36,6 +54,8 @@ namespace Proyecto
             // Ocultar el mensaje de bienvenida
             lblBienvenida.Visible = false;
         }
+
+        #region elementos interfaz
         private void btnCrud1_Click(object sender, EventArgs e)
         {
             AbrirFormulario(new frmCrudUsuarios());
@@ -99,5 +119,22 @@ namespace Proyecto
         {
             AbrirFormulario(new frmCrudProductos());
         }
+
+        private void pnlContenedor_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pnlMenu_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pnlContenedor_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        #endregion
     }
 }

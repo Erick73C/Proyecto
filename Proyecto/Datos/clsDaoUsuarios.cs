@@ -254,6 +254,85 @@ namespace Proyecto.Datos
                 conn?.Close();
             }
         }
-    
-}
+
+        public Usuario ObtenerPorId(int id)
+        {
+            Usuario u = null;
+
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+
+                string query = "SELECT * FROM usuarios WHERE IdUsuario = @Id";
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    u = new Usuario
+                    {
+                        IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
+                        Nombre = reader["Nombre"].ToString(),
+                        ApellidoPaterno = reader["ApellidoPaterno"].ToString(),
+                        ApellidoMaterno = reader["ApellidoMaterno"].ToString(),
+                        Correo = reader["Correo"].ToString(),
+                        UsuarioNombre = reader["Usuario"].ToString(),
+                        Contrasena = reader["Contrasena"].ToString(),
+                        Rol = reader["Rol"].ToString(),
+                        FechaRegistro = Convert.ToDateTime(reader["FechaRegistro"])
+                    };
+                }
+
+                return u;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener usuario por ID.", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+            }
+        }
+
+        public bool ExisteUsuario(string usuarioNombre)
+        {
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+
+                string query = "SELECT COUNT(*) FROM usuarios WHERE Usuario = @Usuario";
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Usuario", usuarioNombre);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al verificar usuario existente.", ex);
+            }
+            finally
+            {
+                cmd?.Dispose();
+                conn?.Close();
+            }
+        }
+
+
+
+    }
 }
