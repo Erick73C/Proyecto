@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Proyecto.Datos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,10 +14,144 @@ namespace Proyecto
 {
     public partial class frmRegistro : Form
     {
+        #region Variables Globales
+        clsDaoUsuarios dao = new clsDaoUsuarios();
+
+        #endregion
+
+        #region metodos auxiliares
         public frmRegistro()
         {
             InitializeComponent();
         }
+
+        #endregion
+
+        #region ValidacionCampos
+        /// <summary>
+        /// valida que los campos no esten vacios.
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidarTodo()
+        {
+            validarNombre();
+            validarApellido();
+            validarCorreo();
+            validarUsuario();
+            validarContra();
+
+            if (!string.IsNullOrEmpty(errnombre.GetError(txtNombre))) return false;
+            if (!string.IsNullOrEmpty(errapellido.GetError(txtApellido))) return false;
+            if (!string.IsNullOrEmpty(erremail.GetError(txtEmail))) return false;
+            if (!string.IsNullOrEmpty(errorusuario.GetError(txtUsuario))) return false;
+            if (!string.IsNullOrEmpty(errorpass.GetError(txtContrasenia))) return false;
+
+            return true;
+        }
+
+        private void validarNombre()
+        {
+            string patron = @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ'\s]+$";
+
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            {
+                txtNombre.BackColor = Color.IndianRed;
+                errnombre.SetError(txtNombre, "Debe escribir el nombre");
+            }
+            else if (!Regex.IsMatch(txtNombre.Text, patron))
+            {
+                txtNombre.BackColor = Color.IndianRed;
+                errnombre.SetError(txtNombre, "El nombre no puede contener números ni símbolos");
+            }
+            else
+            {
+                errnombre.Clear();
+                txtNombre.BackColor = Color.White;
+            }
+        }
+
+        private void validarApellido()
+        {
+            string patron = @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ'\s]+$";
+
+            if (string.IsNullOrWhiteSpace(txtApellido.Text))
+            {
+                txtApellido.BackColor = Color.IndianRed;
+                errapellido.SetError(txtApellido, "Debe escribir el apellido");
+            }
+            else if (!Regex.IsMatch(txtApellido.Text, patron))
+            {
+                txtApellido.BackColor = Color.IndianRed;
+                errapellido.SetError(txtApellido, "El apellido no puede contener números ni símbolos");
+            }
+            else
+            {
+                errapellido.Clear();
+                txtApellido.BackColor = Color.White;
+            }
+        }
+
+        private void validarCorreo()
+        {
+            string patron = @"^[\w\.-]+@[\w\.-]+\.\w+$";
+
+            if (string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                txtEmail.BackColor = Color.IndianRed;
+                erremail.SetError(txtEmail, "Debe escribir el correo");
+            }
+            else if (!Regex.IsMatch(txtEmail.Text, patron))
+            {
+                txtEmail.BackColor = Color.IndianRed;
+                erremail.SetError(txtEmail, "Formato de correo inválido");
+            }
+            else
+            {
+                erremail.Clear();
+                txtEmail.BackColor = Color.White;
+            }
+        }
+
+        private void validarUsuario()
+        {
+            if (string.IsNullOrWhiteSpace(txtUsuario.Text))
+            {
+                txtUsuario.BackColor = Color.IndianRed;
+                errorusuario.SetError(txtUsuario, "Debe escribir el usuario");
+            }
+            else if (txtUsuario.Text.Length > 20)
+            {
+                txtUsuario.BackColor = Color.IndianRed;
+                errorusuario.SetError(txtUsuario, "Debe ser menor a 20 caracteres");
+            }
+            else
+            {
+                errorusuario.Clear();
+                txtUsuario.BackColor = Color.White;
+            }
+        }
+
+        private void validarContra()
+        {
+            if (string.IsNullOrWhiteSpace(txtContrasenia.Text))
+            {
+                txtContrasenia.BackColor = Color.IndianRed;
+                errorpass.SetError(txtContrasenia, "Debe escribir la contraseña");
+            }
+            else if (txtContrasenia.Text.Length < 4)
+            {
+                txtContrasenia.BackColor = Color.IndianRed;
+                errorpass.SetError(txtContrasenia, "Debe tener al menos 4 caracteres");
+            }
+            else
+            {
+                errorpass.Clear();
+                txtContrasenia.BackColor = Color.White;
+            }
+        }
+
+        #endregion
+
         #region elementos Ui
 
         private void frmRegistro_Load(object sender, EventArgs e)
@@ -32,72 +168,43 @@ namespace Proyecto
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            if(ValidarDatos() == false)
+            if (!ValidarTodo())
             {
-                MessageBox.Show("Error al registrar");
+                MessageBox.Show("Corrige los errores antes de continuar.");
+                return;
             }
-            else
+
+            // Verificar si el usuario ya existe
+            if (dao.ExisteUsuario(txtUsuario.Text))
             {
-                //Lógica para registrar al usuario en la base de datos
+                MessageBox.Show("El usuario ya existe. Intenta con otro nombre.");
+                return;
+            }
 
-                //clsDAO.registrarUsuario();
+            // Crear objeto Usuario
+            Usuario nuevo = new Usuario
+            {
+                Nombre = txtNombre.Text.Trim(),
+                ApellidoPaterno = txtApellido.Text.Trim(),
+                ApellidoMaterno = "", // Si no lo usas en la UI
+                Correo = txtEmail.Text.Trim(),
+                UsuarioNombre = txtUsuario.Text.Trim(),
+                Contrasena = txtContrasenia.Text.Trim(),
+                Rol = "Vendedor", // O puedes agregar un ComboBox más adelante
+                FechaRegistro = DateTime.Now
+            };
 
-                frmLogin frmLogin = new frmLogin();
-                frmLogin.Show();
-                Hide();
+            // Insertar en BD
+            bool exito = dao.Insertar(nuevo);
+
+            if (exito)
+            {
+                MessageBox.Show("Usuario registrado correctamente.");
+                frmLogin login = new frmLogin();
+                login.Show();
+                this.Hide();
             }
         }
-
-        #endregion
-
-        #region ValidacionCampos
-        /// <summary>
-        /// valida que los campos no esten vacios.
-        /// </summary>
-        /// <returns></returns>
-        public bool ValidarDatos()
-        {
-            if (string.IsNullOrEmpty(txtNombre.Text) == true)
-            {
-                txtNombre.Focus();
-                txtNombre.BackColor = Color.IndianRed;
-                errnombre.SetError(txtNombre, "El nombre de usuario es obligatorio");
-                return false;
-            }
-            if (string.IsNullOrEmpty(txtContrasenia.Text) == true)
-            {
-                txtContrasenia.Focus();
-                txtContrasenia.BackColor = Color.IndianRed;
-                errorpass.SetError(txtContrasenia, "La contraseña es obligatoria");
-                return false;
-            }
-            if (string.IsNullOrEmpty(txtApellido.Text) == true)
-            {
-                txtApellido.Focus();
-                txtApellido.BackColor = Color.IndianRed;
-                errapellido.SetError(txtApellido, "Debes confirmar la contraseña");
-                return false;
-            }
-            if (string.IsNullOrEmpty(txtEmail.Text) == true)
-            {
-                txtEmail.Focus();
-                txtEmail.BackColor = Color.IndianRed;
-                erremail.SetError(txtEmail, "El correo electrónico es obligatorio");
-                return false;
-            }
-            if(string.IsNullOrEmpty(txtUsuario.Text) == true)
-            {
-                txtUsuario.Focus();
-                txtUsuario.BackColor = Color.IndianRed;
-                errorusuario.SetError(txtUsuario, "El usuario es obligatorio");
-                return false;
-            }
-            return true;
-        }
-
-
-
-        #endregion
 
 
         private void txtNombre_TextChanged(object sender, EventArgs e)
@@ -124,5 +231,7 @@ namespace Proyecto
         {
 
         }
+
+        #endregion
     }
 }

@@ -182,6 +182,7 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(200, 25);
             this.txtUsuario.TabIndex = 3;
+            this.txtUsuario.Text = " ";
             this.txtUsuario.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
             // 
             // txtContrasenia

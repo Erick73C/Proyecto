@@ -151,7 +151,7 @@
             this.lblBienvenida.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblBienvenida.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblBienvenida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblBienvenida.Location = new System.Drawing.Point(3, 250);
+            this.lblBienvenida.Location = new System.Drawing.Point(3, 160);
             this.lblBienvenida.Name = "lblBienvenida";
             this.lblBienvenida.Size = new System.Drawing.Size(1023, 100);
             this.lblBienvenida.TabIndex = 0;
