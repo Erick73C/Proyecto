@@ -13,7 +13,6 @@ namespace Proyecto
 {
     public partial class frmMenu : Form
     {
-
         #region Variables Globales
         clsDaoUsuarios dao = new clsDaoUsuarios();
         private Usuario usuarioActual;
@@ -30,9 +29,51 @@ namespace Proyecto
 
         private void frmMenu_Load(object sender, EventArgs e)
         {
+            if (usuarioActual == null)
+            {
+                MessageBox.Show("No se recibió información del usuario.");
+                return;
+            }
 
+            // Mostrar nombre completo y rol
+            lblNombreUsuario.Text =
+                $"{usuarioActual.Nombre} {usuarioActual.ApellidoPaterno} ({usuarioActual.Rol})";
+
+            // Control de accesos según rol
+            switch (usuarioActual.Rol)
+            {
+                case "Administrador":
+                    btnCrud1.Enabled = true;  // Usuarios
+                    btnCrud2.Enabled = true;  // Productos
+                    btnCrud3.Enabled = true;  // Ventas
+                    break;
+
+                case "Recursos Humanos":
+                    btnCrud1.Enabled = true;
+                    btnCrud2.Enabled = false;
+                    btnCrud3.Enabled = false;
+                    break;
+
+                case "Almacenista":
+                    btnCrud1.Enabled = false;
+                    btnCrud2.Enabled = true;
+                    btnCrud3.Enabled = false;
+                    break;
+
+                case "Vendedor":
+                    btnCrud1.Enabled = false;
+                    btnCrud2.Enabled = false;
+                    btnCrud3.Enabled = true;
+                    break;
+
+                default:
+                    // En caso de rol desconocido, por seguridad, desactiva todo
+                    btnCrud1.Enabled = false;
+                    btnCrud2.Enabled = false;
+                    btnCrud3.Enabled = false;
+                    break;
+            }
         }
-        #endregion
 
         private void AbrirFormulario(Form formHijo)
         {
@@ -55,20 +96,32 @@ namespace Proyecto
             lblBienvenida.Visible = false;
         }
 
+        #endregion
+
         #region elementos interfaz
         private void btnCrud1_Click(object sender, EventArgs e)
         {
             AbrirFormulario(new frmCrudUsuarios());
         }
 
+        private void btnCrud3_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmCrudVentas());
+        }
+
+        private void btnCrud2_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmCrudProductos());
+        }
+
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(
-        "¿Está seguro que desea cerrar sesión?",
-        "Cerrar Sesión",
-        MessageBoxButtons.YesNo,
-        MessageBoxIcon.Question
-    );
+                "¿Está seguro que desea cerrar sesión?",
+                "Cerrar Sesión",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
 
             if (result == DialogResult.Yes)
             {
@@ -79,10 +132,19 @@ namespace Proyecto
             }
         }
 
-        private void btnCrud2_Leave(object sender, EventArgs e)
+        private void lblNombreUsuario_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show(
+                $"Usuario: {usuarioActual.UsuarioNombre}\n" +
+                $"Nombre: {usuarioActual.Nombre} {usuarioActual.ApellidoPaterno}\n" +
+                $"Rol: {usuarioActual.Rol}",
+                "Información del Usuario",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+             );
         }
+
+        #region Sin logica
         private void Button_MouseEnter(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -96,7 +158,6 @@ namespace Proyecto
             }
             btn.Cursor = Cursors.Hand;
         }
-
         private void Button_MouseLeave(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -110,14 +171,9 @@ namespace Proyecto
             }
         }
 
-        private void btnCrud3_Click(object sender, EventArgs e)
+        private void btnCrud2_Leave(object sender, EventArgs e)
         {
-            AbrirFormulario(new frmCrudVentas());
-        }
 
-        private void btnCrud2_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario(new frmCrudProductos());
         }
 
         private void pnlContenedor_Paint(object sender, PaintEventArgs e)
@@ -134,7 +190,8 @@ namespace Proyecto
         {
 
         }
-
         #endregion
+        #endregion
+
     }
 }

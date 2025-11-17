@@ -36,6 +36,7 @@
             this.lblTituloMenu = new System.Windows.Forms.Label();
             this.pnlContenedor = new System.Windows.Forms.Panel();
             this.lblBienvenida = new System.Windows.Forms.Label();
+            this.lblNombreUsuario = new System.Windows.Forms.Label();
             this.pnlMenu.SuspendLayout();
             this.pnlContenedor.SuspendLayout();
             this.SuspendLayout();
@@ -138,6 +139,7 @@
             // pnlContenedor
             // 
             this.pnlContenedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.pnlContenedor.Controls.Add(this.lblNombreUsuario);
             this.pnlContenedor.Controls.Add(this.lblBienvenida);
             this.pnlContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContenedor.Location = new System.Drawing.Point(194, 0);
@@ -157,6 +159,19 @@
             this.lblBienvenida.TabIndex = 0;
             this.lblBienvenida.Text = "BIENVENIDO AL SISTEMA";
             this.lblBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblNombreUsuario
+            // 
+            this.lblNombreUsuario.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblNombreUsuario.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblNombreUsuario.Location = new System.Drawing.Point(3, 255);
+            this.lblNombreUsuario.Name = "lblNombreUsuario";
+            this.lblNombreUsuario.Size = new System.Drawing.Size(1023, 100);
+            this.lblNombreUsuario.TabIndex = 1;
+            this.lblNombreUsuario.Text = "CARGANDO NOMBRE.....";
+            this.lblNombreUsuario.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblNombreUsuario.Click += new System.EventHandler(this.lblNombreUsuario_Click);
             // 
             // frmMenu
             // 
@@ -190,5 +205,6 @@
         private System.Windows.Forms.Button btnCerrarSesion;
         private System.Windows.Forms.Panel pnlContenedor;
         private System.Windows.Forms.Label lblBienvenida;
+        private System.Windows.Forms.Label lblNombreUsuario;
     }
 }
