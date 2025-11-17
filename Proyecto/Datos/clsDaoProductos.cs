@@ -258,5 +258,57 @@ namespace Proyecto.Datos
                 conn?.Dispose();
             }
         }
+
+        /// <summary>
+        /// Obtiene la lista completa de productos desde la base de datos.
+        /// </summary>
+        /// <returns>Lista de objetos <see cref="Producto"/> con todos los productos encontrados.</returns>
+        public List<Producto> ObtenerTodosLosProductos()
+        {
+            List<Producto> productos = new List<Producto>();
+
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+
+                string query = "SELECT IdProducto, Nombre, Descripcion, Existencia, PrecioUnitario FROM productos ORDER BY Nombre ASC";
+                cmd = new MySqlCommand(query, conn);
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Producto p = new Producto
+                    {
+                        IdProducto = Convert.ToInt32(reader["IdProducto"]),
+                        Nombre = reader["Nombre"].ToString(),
+                        Descripcion = reader["Descripcion"].ToString(),
+                        Existencia = reader["Existencia"] != DBNull.Value ? Convert.ToInt32(reader["Existencia"]) : 0,
+                        PrecioUnitario = reader["PrecioUnitario"] != DBNull.Value ? Convert.ToDecimal(reader["PrecioUnitario"]) : 0m
+                    };
+
+                    productos.Add(p);
+                }
+
+                return productos;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener los productos.", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
+        }
+
     }
 }

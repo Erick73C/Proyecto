@@ -14,6 +14,8 @@ namespace Proyecto.Datos
         public string Producto { get; set; }
         public int Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }
-        public decimal Total { get; set; } 
+        public decimal Total { get; set; }
+
+        public List<DetalleVenta> Detalles { get; set; } = new List<DetalleVenta>();
     }
 }

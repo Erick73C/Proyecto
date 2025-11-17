@@ -97,6 +97,8 @@
   <ItemGroup>
     <Compile Include="Datos\clsDaoProductos.cs" />
     <Compile Include="Datos\clsDaoUsuarios.cs" />
+    <Compile Include="Datos\clsDaoVentas.cs" />
+    <Compile Include="Datos\DetalleVenta.cs" />
     <Compile Include="Datos\Producto.cs" />
     <Compile Include="Datos\Usuario.cs" />
     <Compile Include="Datos\Venta.cs" />
@@ -178,6 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Datos\basedeDatos.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

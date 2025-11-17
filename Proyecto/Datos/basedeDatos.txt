@@ -1,0 +1,195 @@
+﻿-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 16-11-2025 a las 00:33:10
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `ventasbd`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `IdProducto` int(11) NOT NULL,
+  `Nombre` varchar(100) NOT NULL,
+  `Descripcion` varchar(200) NOT NULL,
+  `Existencia` int(11) NOT NULL,
+  `PrecioUnitario` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`IdProducto`, `Nombre`, `Descripcion`, `Existencia`, `PrecioUnitario`) VALUES
+(1, 'pc gamer', 'tiene luces ', 32, 3242.00),
+(6, 'Mouse Inalámbrico Logitech M720', 'Mouse ergonómico de 7 botones', 45, 599.00),
+(7, 'Teclado Mecánico Redragon Kumara', 'Switch Red, retroiluminación LED', 25, 849.00),
+(8, 'Monitor Samsung 27\"', 'Pantalla LED Full HD 75Hz', 12, 3299.00),
+(9, 'Laptop HP 15\"', 'Intel i5, 8GB RAM, 512GB SSD', 8, 12499.00),
+(10, 'Memoria USB Kingston 64GB', 'USB 3.2 alta velocidad', 100, 139.00),
+(11, 'Audífonos JBL Tune 500', 'Sonido PureBass, cable plano', 30, 499.00),
+(12, 'Impresora Epson L3250', 'Sistema EcoTank, WiFi Direct', 6, 4299.00),
+(13, 'Silla Gamer Cougar Armor One', 'Soporte lumbar, reclinable', 5, 3599.00),
+(14, 'Router TP-Link Archer C6', 'Doble banda, MU-MIMO', 20, 799.00),
+(15, 'Disco Duro Externo Seagate 2TB', 'USB 3.0, portátil', 18, 1199.00),
+(16, 'Cámara Web Logitech C920', 'Full HD, micrófonos estéreo', 17, 1299.00),
+(17, 'Memoria RAM Corsair 16GB', 'DDR4 3200MHz', 22, 899.00),
+(18, 'Tarjeta Gráfica GTX 1650', '4GB GDDR5, bajo consumos', 7, 3499.00),
+(19, 'Fuente de Poder EVGA 600W', '80 Plus White', 14, 899.00),
+(20, 'Smartwatch Xiaomi Redmi Watch 3', 'Resistente al agua, GPS', 16, 1599.00),
+(21, 'SSD Kingston 480GB A400', '2.5 pulgadas, lectura rápida', 40, 699.00),
+(22, 'Cable HDMI 2.0 2 metros', 'Compatible con 4K', 120, 89.00),
+(23, 'Bocinas Logitech Z200', 'Potencia 10W, sonido estéreo', 26, 499.00),
+(24, 'Tablet Lenovo M10', '10\" FHD, 4GB RAM, 64GB', 9, 3999.00),
+(25, 'Kit Teclado y Mouse Microsoft', 'Inalámbricos, diseño ergonómico', 32, 849.00),
+(26, 'nose', 'es algo pero nose que es', 23456, 4567.00);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `IdUsuario` int(11) NOT NULL,
+  `Nombre` varchar(100) NOT NULL,
+  `ApellidoPaterno` varchar(100) NOT NULL,
+  `ApellidoMaterno` varchar(100) NOT NULL,
+  `Correo` varchar(150) NOT NULL,
+  `Usuario` varchar(50) NOT NULL,
+  `Contrasena` varchar(255) NOT NULL,
+  `Rol` enum('Administrador','Recursos Humanos','Vendedor','Almacenista') NOT NULL,
+  `FechaRegistro` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`IdUsuario`, `Nombre`, `ApellidoPaterno`, `ApellidoMaterno`, `Correo`, `Usuario`, `Contrasena`, `Rol`, `FechaRegistro`) VALUES
+(1, 'Erick Omar', 'Perez', 'perez', 'omar@gmail.com', 'erickzen', '1234', 'Administrador', '2025-11-15 14:13:27'),
+(2, 'Jose', 'angel', 'martines', 'martines@gmail.com', 'El jose', '1234', 'Vendedor', '2025-11-15 15:31:30'),
+(4, 'prueva', 'pe', 'pi', 'to@gmail.com', 'muñeco', '1234', 'Recursos Humanos', '2025-11-15 15:40:33'),
+(5, 'El', 'tipo', 'es', 'correo@gmail.com', 'p', '1234', 'Almacenista', '2025-11-15 15:42:42'),
+(6, 'nuevo', 'pere', 'gon', 'zales@gmail.com', 'nada', '1234', 'Recursos Humanos', '2025-11-15 15:43:51');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ventas`
+--
+
+CREATE TABLE `ventas` (
+  `IdVenta` int(11) NOT NULL,
+  `Fecha` datetime NOT NULL,
+  `Cliente` varchar(50) NOT NULL,
+  `Producto` varchar(100) NOT NULL,
+  `Cantidad` int(11) NOT NULL,
+  `PrecioUnitario` decimal(10,2) NOT NULL,
+  `total` decimal(10,2) GENERATED ALWAYS AS (`Cantidad` * `PrecioUnitario`) STORED,
+  `IdProducto` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`IdProducto`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`IdUsuario`),
+  ADD UNIQUE KEY `Usuario` (`Usuario`);
+
+--
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD PRIMARY KEY (`IdVenta`),
+  ADD KEY `IdProducto` (`IdProducto`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `IdProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  MODIFY `IdVenta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`IdProducto`) REFERENCES `productos` (`IdProducto`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+INSERT INTO `productos` (`IdProducto`, `Nombre`, `Descripcion`, `Existencia`, `PrecioUnitario`) VALUES
+(6, 'Mouse Inalámbrico Logitech M720', 'Mouse ergonómico de 7 botones', 45, 599.00),
+(7, 'Teclado Mecánico Redragon Kumara', 'Switch Red, retroiluminación LED', 25, 849.00),
+(8, 'Monitor Samsung 27"', 'Pantalla LED Full HD 75Hz', 12, 3299.00),
+(9, 'Laptop HP 15"', 'Intel i5, 8GB RAM, 512GB SSD', 8, 12499.00),
+(10, 'Memoria USB Kingston 64GB', 'USB 3.2 alta velocidad', 100, 139.00),
+(11, 'Audífonos JBL Tune 500', 'Sonido PureBass, cable plano', 30, 499.00),
+(12, 'Impresora Epson L3250', 'Sistema EcoTank, WiFi Direct', 6, 4299.00),
+(13, 'Silla Gamer Cougar Armor One', 'Soporte lumbar, reclinable', 5, 3599.00),
+(14, 'Router TP-Link Archer C6', 'Doble banda, MU-MIMO', 20, 799.00),
+(15, 'Disco Duro Externo Seagate 2TB', 'USB 3.0, portátil', 18, 1199.00),
+(16, 'Cámara Web Logitech C920', 'Full HD, micrófonos estéreo', 10, 1299.00),
+(17, 'Memoria RAM Corsair 16GB', 'DDR4 3200MHz', 22, 899.00),
+(18, 'Tarjeta Gráfica GTX 1650', '4GB GDDR5, bajo consumo', 7, 3499.00),
+(19, 'Fuente de Poder EVGA 600W', '80 Plus White', 14, 899.00),
+(20, 'Smartwatch Xiaomi Redmi Watch 3', 'Resistente al agua, GPS', 16, 1599.00),
+(21, 'SSD Kingston 480GB A400', '2.5 pulgadas, lectura rápida', 40, 699.00),
+(22, 'Cable HDMI 2.0 2 metros', 'Compatible con 4K', 120, 89.00),
+(23, 'Bocinas Logitech Z200', 'Potencia 10W, sonido estéreo', 26, 499.00),
+(24, 'Tablet Lenovo M10', '10" FHD, 4GB RAM, 64GB', 9, 3999.00),
+(25, 'Kit Teclado y Mouse Microsoft', 'Inalámbricos, diseño ergonómico', 32, 849.00);
