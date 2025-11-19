@@ -40,6 +40,12 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.panelFormulario = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.cbxRol = new System.Windows.Forms.ComboBox();
+            this.txtcontrasenia = new System.Windows.Forms.TextBox();
+            this.txtApellidoMaterno = new System.Windows.Forms.TextBox();
+            this.txtApellidoPaterno = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpFechaRegistro = new System.Windows.Forms.DateTimePicker();
             this.lblMaterno = new System.Windows.Forms.Label();
@@ -52,10 +58,6 @@
             this.txtIdUsuario = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtCorreo = new System.Windows.Forms.TextBox();
-            this.txtApellidoPaterno = new System.Windows.Forms.TextBox();
-            this.txtApellidoMaterno = new System.Windows.Forms.TextBox();
-            this.txtcontrasenia = new System.Windows.Forms.TextBox();
-            this.cbxRol = new System.Windows.Forms.ComboBox();
             this.errNombre = new System.Windows.Forms.ErrorProvider(this.components);
             this.errApellidoPaterno = new System.Windows.Forms.ErrorProvider(this.components);
             this.errApellidoMaterno = new System.Windows.Forms.ErrorProvider(this.components);
@@ -63,8 +65,7 @@
             this.errUsuario = new System.Windows.Forms.ErrorProvider(this.components);
             this.errContrasena = new System.Windows.Forms.ErrorProvider(this.components);
             this.errRol = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.erroNombreUsuario = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.panelFormulario.SuspendLayout();
@@ -75,6 +76,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errUsuario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errContrasena)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errRol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erroNombreUsuario)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -213,6 +215,8 @@
             this.dgvUsuarios.TabIndex = 17;
             this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick);
             this.dgvUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellContentClick);
+            this.dgvUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellDoubleClick);
+            this.dgvUsuarios.DoubleClick += new System.EventHandler(this.dgvUsuarios_DoubleClick);
             // 
             // panelFormulario
             // 
@@ -242,6 +246,75 @@
             this.panelFormulario.Name = "panelFormulario";
             this.panelFormulario.Size = new System.Drawing.Size(225, 489);
             this.panelFormulario.TabIndex = 16;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label2.Location = new System.Drawing.Point(16, 365);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(115, 15);
+            this.label2.TabIndex = 27;
+            this.label2.Text = "Nombre de Usuario";
+            // 
+            // txtUsuario
+            // 
+            this.txtUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtUsuario.Location = new System.Drawing.Point(16, 381);
+            this.txtUsuario.Margin = new System.Windows.Forms.Padding(2);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(196, 25);
+            this.txtUsuario.TabIndex = 9;
+            this.txtUsuario.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
+            // 
+            // cbxRol
+            // 
+            this.cbxRol.FormattingEnabled = true;
+            this.cbxRol.Location = new System.Drawing.Point(16, 341);
+            this.cbxRol.Name = "cbxRol";
+            this.cbxRol.Size = new System.Drawing.Size(196, 21);
+            this.cbxRol.TabIndex = 8;
+            this.cbxRol.SelectedIndexChanged += new System.EventHandler(this.cbxRol_SelectedIndexChanged);
+            // 
+            // txtcontrasenia
+            // 
+            this.txtcontrasenia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.txtcontrasenia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtcontrasenia.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtcontrasenia.Location = new System.Drawing.Point(16, 288);
+            this.txtcontrasenia.Margin = new System.Windows.Forms.Padding(2);
+            this.txtcontrasenia.Name = "txtcontrasenia";
+            this.txtcontrasenia.Size = new System.Drawing.Size(196, 25);
+            this.txtcontrasenia.TabIndex = 7;
+            this.txtcontrasenia.TextChanged += new System.EventHandler(this.txtcontrasenia_TextChanged);
+            // 
+            // txtApellidoMaterno
+            // 
+            this.txtApellidoMaterno.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.txtApellidoMaterno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtApellidoMaterno.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtApellidoMaterno.Location = new System.Drawing.Point(16, 189);
+            this.txtApellidoMaterno.Margin = new System.Windows.Forms.Padding(2);
+            this.txtApellidoMaterno.Name = "txtApellidoMaterno";
+            this.txtApellidoMaterno.Size = new System.Drawing.Size(196, 25);
+            this.txtApellidoMaterno.TabIndex = 5;
+            this.txtApellidoMaterno.TextChanged += new System.EventHandler(this.txtApellidoMaterno_TextChanged);
+            // 
+            // txtApellidoPaterno
+            // 
+            this.txtApellidoPaterno.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.txtApellidoPaterno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtApellidoPaterno.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtApellidoPaterno.Location = new System.Drawing.Point(16, 128);
+            this.txtApellidoPaterno.Margin = new System.Windows.Forms.Padding(2);
+            this.txtApellidoPaterno.Name = "txtApellidoPaterno";
+            this.txtApellidoPaterno.Size = new System.Drawing.Size(196, 25);
+            this.txtApellidoPaterno.TabIndex = 4;
+            this.txtApellidoPaterno.TextChanged += new System.EventHandler(this.txtApellidoPaterno_TextChanged);
             // 
             // label1
             // 
@@ -384,51 +457,6 @@
             this.txtCorreo.TabIndex = 6;
             this.txtCorreo.TextChanged += new System.EventHandler(this.txtCorreo_TextChanged);
             // 
-            // txtApellidoPaterno
-            // 
-            this.txtApellidoPaterno.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.txtApellidoPaterno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtApellidoPaterno.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtApellidoPaterno.Location = new System.Drawing.Point(16, 128);
-            this.txtApellidoPaterno.Margin = new System.Windows.Forms.Padding(2);
-            this.txtApellidoPaterno.Name = "txtApellidoPaterno";
-            this.txtApellidoPaterno.Size = new System.Drawing.Size(196, 25);
-            this.txtApellidoPaterno.TabIndex = 4;
-            this.txtApellidoPaterno.TextChanged += new System.EventHandler(this.txtApellidoPaterno_TextChanged);
-            // 
-            // txtApellidoMaterno
-            // 
-            this.txtApellidoMaterno.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.txtApellidoMaterno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtApellidoMaterno.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtApellidoMaterno.Location = new System.Drawing.Point(16, 189);
-            this.txtApellidoMaterno.Margin = new System.Windows.Forms.Padding(2);
-            this.txtApellidoMaterno.Name = "txtApellidoMaterno";
-            this.txtApellidoMaterno.Size = new System.Drawing.Size(196, 25);
-            this.txtApellidoMaterno.TabIndex = 5;
-            this.txtApellidoMaterno.TextChanged += new System.EventHandler(this.txtApellidoMaterno_TextChanged);
-            // 
-            // txtcontrasenia
-            // 
-            this.txtcontrasenia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.txtcontrasenia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtcontrasenia.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtcontrasenia.Location = new System.Drawing.Point(16, 288);
-            this.txtcontrasenia.Margin = new System.Windows.Forms.Padding(2);
-            this.txtcontrasenia.Name = "txtcontrasenia";
-            this.txtcontrasenia.Size = new System.Drawing.Size(196, 25);
-            this.txtcontrasenia.TabIndex = 7;
-            this.txtcontrasenia.TextChanged += new System.EventHandler(this.txtcontrasenia_TextChanged);
-            // 
-            // cbxRol
-            // 
-            this.cbxRol.FormattingEnabled = true;
-            this.cbxRol.Location = new System.Drawing.Point(16, 341);
-            this.cbxRol.Name = "cbxRol";
-            this.cbxRol.Size = new System.Drawing.Size(196, 21);
-            this.cbxRol.TabIndex = 8;
-            this.cbxRol.SelectedIndexChanged += new System.EventHandler(this.cbxRol_SelectedIndexChanged);
-            // 
             // errNombre
             // 
             this.errNombre.ContainerControl = this;
@@ -457,28 +485,9 @@
             // 
             this.errRol.ContainerControl = this;
             // 
-            // label2
+            // erroNombreUsuario
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label2.Location = new System.Drawing.Point(16, 365);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 15);
-            this.label2.TabIndex = 27;
-            this.label2.Text = "Nombre de Usuario";
-            // 
-            // txtUsuario
-            // 
-            this.txtUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtUsuario.Location = new System.Drawing.Point(16, 381);
-            this.txtUsuario.Margin = new System.Windows.Forms.Padding(2);
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(196, 25);
-            this.txtUsuario.TabIndex = 9;
+            this.erroNombreUsuario.ContainerControl = this;
             // 
             // frmCrudUsuarios
             // 
@@ -504,6 +513,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errUsuario)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errContrasena)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errRol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erroNombreUsuario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -544,5 +554,6 @@
         private System.Windows.Forms.ErrorProvider errRol;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUsuario;
+        private System.Windows.Forms.ErrorProvider erroNombreUsuario;
     }
 }

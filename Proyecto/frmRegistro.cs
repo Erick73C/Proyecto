@@ -180,11 +180,6 @@ namespace Proyecto
                 MessageBox.Show("El usuario ya existe. Intenta con otro nombre.");
                 return;
             }
-            if (dao.ExisteUsuario(txtEmail.Text))
-            {
-                MessageBox.Show("El correo ya está registrado. Intenta con otro.");
-                return;
-            }
 
             Usuario nuevo = new Usuario
             {

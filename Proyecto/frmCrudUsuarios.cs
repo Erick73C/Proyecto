@@ -16,7 +16,8 @@ namespace Proyecto
     {
         #region Variables Globales
         clsDaoUsuarios daoUsuarios = new clsDaoUsuarios();
-        bool modoEditar = false;
+        private bool modoEditar = false;
+        private bool modoNuevo = false;
         #endregion
 
 
@@ -38,6 +39,14 @@ namespace Proyecto
             btnEditar.Enabled = false;
             btnEliminar.Enabled = false;
             txtIdUsuario.Enabled = false;
+
+            // CONFIGURACIONES DEL DGV PARA EVITAR EDICIÓN POR DOBLE CLICK
+            dgvUsuarios.ReadOnly = true; // evita edición directa de celdas
+            dgvUsuarios.EditMode = DataGridViewEditMode.EditProgrammatically; // solo edición por código
+            dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect; // seleccionar fila completa
+            dgvUsuarios.MultiSelect = false;
+            dgvUsuarios.AllowUserToAddRows = false;
+            dgvUsuarios.AllowUserToDeleteRows = false;
 
             CargarUsuarios();
         }
@@ -92,7 +101,7 @@ namespace Proyecto
             if (!string.IsNullOrEmpty(errApellidoPaterno.GetError(txtApellidoPaterno))) return false;
             if (!string.IsNullOrEmpty(errApellidoMaterno.GetError(txtApellidoMaterno))) return false;
             if (!string.IsNullOrEmpty(errCorreo.GetError(txtCorreo))) return false;
-           if (!string.IsNullOrEmpty(errUsuario.GetError(txtIdUsuario))) return false;
+            if (!string.IsNullOrEmpty(errUsuario.GetError(txtUsuario))) return false;
             if (!string.IsNullOrEmpty(errContrasena.GetError(txtcontrasenia))) return false;
             if (!string.IsNullOrEmpty(errRol.GetError(cbxRol))) return false;
 
@@ -224,10 +233,17 @@ namespace Proyecto
 
         private void validarUsuario()
         {
+            string patron = @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ'\s]+$";
+
             if (string.IsNullOrWhiteSpace(txtUsuario.Text))
             {
                 txtUsuario.BackColor = Color.IndianRed;
                 errUsuario.SetError(txtUsuario, "Debe escribir el usuario");
+            }
+            else if (!Regex.IsMatch(txtUsuario.Text, patron))
+            {
+                txtUsuario.BackColor = Color.IndianRed;
+                errUsuario.SetError(txtUsuario, "El nombre no puede contener números ni caracteres especiales");
             }
             else if (txtUsuario.Text.Length > 20)
             {
@@ -319,6 +335,7 @@ namespace Proyecto
         #region Botones de accion
         private void btnNuevo_Click(object sender, EventArgs e)
         {
+            modoNuevo = true;
             modoEditar = false;
             LimpiarCampos();
             HabilitarCampos(true);
@@ -337,6 +354,13 @@ namespace Proyecto
             {
                 MessageBox.Show("Corrija los campos marcados en rojo.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Verificar si el usuario ya existe
+            if (daoUsuarios.ExisteUsuario(txtUsuario.Text))
+            {
+                MessageBox.Show("El usuario ya existe. Intenta con otro nombre.");
                 return;
             }
 
@@ -372,7 +396,9 @@ namespace Proyecto
             btnGuardar.Enabled = false;
             btnEditar.Enabled = false;
             btnEliminar.Enabled = false;
-            btnNuevo.Enabled = true;    
+            btnNuevo.Enabled = true;
+            modoNuevo = false;
+            dgvUsuarios.Enabled = true;
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -445,7 +471,49 @@ namespace Proyecto
             btnEliminar.Enabled = true;
             btnGuardar.Enabled = false;
         }
+        //No sirve pero no se puede borrar
+        private void dgvUsuarios_DoubleClick(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dgvUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            // Si estamos creando un nuevo usuario, no permitir seleccionar/llenar desde el dgv
+            if (modoNuevo) return;
+
+            DataGridViewRow fila = dgvUsuarios.Rows[e.RowIndex];
+
+            // Verificar valores nulos por si acaso
+            if (fila.Cells["IdUsuario"].Value == null) return;
+
+            txtIdUsuario.Text = fila.Cells["IdUsuario"].Value.ToString();
+            txtNombre.Text = fila.Cells["Nombre"].Value?.ToString() ?? string.Empty;
+            txtApellidoPaterno.Text = fila.Cells["ApellidoPaterno"].Value?.ToString() ?? string.Empty;
+            txtApellidoMaterno.Text = fila.Cells["ApellidoMaterno"].Value?.ToString() ?? string.Empty;
+            txtCorreo.Text = fila.Cells["Correo"].Value?.ToString() ?? string.Empty;
+            txtUsuario.Text = fila.Cells["UsuarioNombre"].Value?.ToString() ?? string.Empty;
+            txtcontrasenia.Text = fila.Cells["Contrasena"].Value?.ToString() ?? string.Empty;
+            cbxRol.Text = fila.Cells["Rol"].Value?.ToString() ?? string.Empty;
+
+            // Fecha: intenta convertir con seguridad
+            if (fila.Cells["FechaRegistro"].Value != null && DateTime.TryParse(fila.Cells["FechaRegistro"].Value.ToString(), out DateTime fecha))
+            {
+                dtpFechaRegistro.Value = fecha;
+            }
+
+            HabilitarCampos(false);
+
+            btnEditar.Enabled = true;
+            btnEliminar.Enabled = true;
+            btnGuardar.Enabled = false;
+        }
         #endregion
 
+        private void txtUsuario_TextChanged(object sender, EventArgs e)
+        {
+        }
     }
 }

@@ -13,8 +13,11 @@ namespace Proyecto
 {
     public partial class frmReportes : Form
     {
+        #region Variables Globales
         private clsReportes daoReportes;
         private Reporte reporteSeleccionado;
+        #endregion
+        #region Metodos auxiliares
         public frmReportes()
         {
             InitializeComponent();
@@ -39,7 +42,7 @@ namespace Proyecto
         {
             try
             {
-                var reportes = daoReportes.ObtenerTodos();
+                var reportes = daoReportes.ObtenerTodosConDetalles();
                 dgvReportes.DataSource = reportes;
                 ConfigurarDataGridView();
             }
@@ -113,7 +116,8 @@ namespace Proyecto
 
             return true;
         }
-
+        #endregion
+        #region Elementos de  UI
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarDatos()) return;
@@ -305,5 +309,7 @@ namespace Proyecto
                 }
             }
         }
+
+        #endregion
     }
 }

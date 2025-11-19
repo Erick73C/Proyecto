@@ -142,8 +142,8 @@ namespace Proyecto
             {
                 this.Close();
                 // Aquí puedes agregar la lógica para volver al login
-                // frmLogin login = new frmLogin();
-                // login.Show();
+                frmLogin login = new frmLogin();
+                login.Show();
             }
         }
 
