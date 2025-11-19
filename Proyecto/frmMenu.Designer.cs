@@ -32,11 +32,13 @@
             this.btnCrud2 = new System.Windows.Forms.Button();
             this.btnCrud3 = new System.Windows.Forms.Button();
             this.pnlMenu = new System.Windows.Forms.Panel();
+            this.btnCompra = new System.Windows.Forms.Button();
+            this.btnReportes = new System.Windows.Forms.Button();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.lblTituloMenu = new System.Windows.Forms.Label();
             this.pnlContenedor = new System.Windows.Forms.Panel();
-            this.lblBienvenida = new System.Windows.Forms.Label();
             this.lblNombreUsuario = new System.Windows.Forms.Label();
+            this.lblBienvenida = new System.Windows.Forms.Label();
             this.pnlMenu.SuspendLayout();
             this.pnlContenedor.SuspendLayout();
             this.SuspendLayout();
@@ -47,7 +49,7 @@
             this.btnCrud1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCrud1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnCrud1.ForeColor = System.Drawing.Color.White;
-            this.btnCrud1.Location = new System.Drawing.Point(10, 100);
+            this.btnCrud1.Location = new System.Drawing.Point(10, 160);
             this.btnCrud1.Margin = new System.Windows.Forms.Padding(4);
             this.btnCrud1.Name = "btnCrud1";
             this.btnCrud1.Size = new System.Drawing.Size(180, 45);
@@ -64,7 +66,7 @@
             this.btnCrud2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCrud2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnCrud2.ForeColor = System.Drawing.Color.White;
-            this.btnCrud2.Location = new System.Drawing.Point(10, 160);
+            this.btnCrud2.Location = new System.Drawing.Point(10, 220);
             this.btnCrud2.Margin = new System.Windows.Forms.Padding(4);
             this.btnCrud2.Name = "btnCrud2";
             this.btnCrud2.Size = new System.Drawing.Size(180, 45);
@@ -81,7 +83,7 @@
             this.btnCrud3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCrud3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnCrud3.ForeColor = System.Drawing.Color.White;
-            this.btnCrud3.Location = new System.Drawing.Point(10, 220);
+            this.btnCrud3.Location = new System.Drawing.Point(10, 275);
             this.btnCrud3.Margin = new System.Windows.Forms.Padding(4);
             this.btnCrud3.Name = "btnCrud3";
             this.btnCrud3.Size = new System.Drawing.Size(180, 45);
@@ -95,6 +97,8 @@
             // pnlMenu
             // 
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.pnlMenu.Controls.Add(this.btnCompra);
+            this.pnlMenu.Controls.Add(this.btnReportes);
             this.pnlMenu.Controls.Add(this.btnCerrarSesion);
             this.pnlMenu.Controls.Add(this.lblTituloMenu);
             this.pnlMenu.Controls.Add(this.btnCrud1);
@@ -103,9 +107,42 @@
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlMenu.Location = new System.Drawing.Point(0, 0);
             this.pnlMenu.Name = "pnlMenu";
-            this.pnlMenu.Size = new System.Drawing.Size(194, 611);
+            this.pnlMenu.Size = new System.Drawing.Size(200, 611);
             this.pnlMenu.TabIndex = 3;
             this.pnlMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMenu_Paint);
+            // 
+            // btnCompra
+            // 
+            this.btnCompra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnCompra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCompra.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCompra.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnCompra.ForeColor = System.Drawing.Color.White;
+            this.btnCompra.Location = new System.Drawing.Point(10, 84);
+            this.btnCompra.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCompra.Name = "btnCompra";
+            this.btnCompra.Size = new System.Drawing.Size(180, 64);
+            this.btnCompra.TabIndex = 6;
+            this.btnCompra.Text = "Realizar compra";
+            this.btnCompra.UseVisualStyleBackColor = false;
+            this.btnCompra.Click += new System.EventHandler(this.btnCompra_Click);
+            // 
+            // btnReportes
+            // 
+            this.btnReportes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.btnReportes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReportes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnReportes.ForeColor = System.Drawing.Color.White;
+            this.btnReportes.Location = new System.Drawing.Point(10, 333);
+            this.btnReportes.Margin = new System.Windows.Forms.Padding(4);
+            this.btnReportes.Name = "btnReportes";
+            this.btnReportes.Size = new System.Drawing.Size(180, 64);
+            this.btnReportes.TabIndex = 5;
+            this.btnReportes.Text = "Productos";
+            this.btnReportes.UseVisualStyleBackColor = false;
+            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
             // 
             // btnCerrarSesion
             // 
@@ -131,7 +168,7 @@
             this.lblTituloMenu.ForeColor = System.Drawing.Color.White;
             this.lblTituloMenu.Location = new System.Drawing.Point(0, 0);
             this.lblTituloMenu.Name = "lblTituloMenu";
-            this.lblTituloMenu.Size = new System.Drawing.Size(194, 80);
+            this.lblTituloMenu.Size = new System.Drawing.Size(200, 80);
             this.lblTituloMenu.TabIndex = 3;
             this.lblTituloMenu.Text = "SISTEMA";
             this.lblTituloMenu.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -142,30 +179,18 @@
             this.pnlContenedor.Controls.Add(this.lblNombreUsuario);
             this.pnlContenedor.Controls.Add(this.lblBienvenida);
             this.pnlContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContenedor.Location = new System.Drawing.Point(194, 0);
+            this.pnlContenedor.Location = new System.Drawing.Point(200, 0);
             this.pnlContenedor.Name = "pnlContenedor";
-            this.pnlContenedor.Size = new System.Drawing.Size(1029, 611);
+            this.pnlContenedor.Size = new System.Drawing.Size(1023, 611);
             this.pnlContenedor.TabIndex = 5;
             this.pnlContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlContenedor_Paint_1);
-            // 
-            // lblBienvenida
-            // 
-            this.lblBienvenida.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblBienvenida.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
-            this.lblBienvenida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblBienvenida.Location = new System.Drawing.Point(3, 160);
-            this.lblBienvenida.Name = "lblBienvenida";
-            this.lblBienvenida.Size = new System.Drawing.Size(1023, 100);
-            this.lblBienvenida.TabIndex = 0;
-            this.lblBienvenida.Text = "BIENVENIDO AL SISTEMA";
-            this.lblBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblNombreUsuario
             // 
             this.lblNombreUsuario.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblNombreUsuario.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblNombreUsuario.Location = new System.Drawing.Point(3, 255);
+            this.lblNombreUsuario.Location = new System.Drawing.Point(0, 255);
             this.lblNombreUsuario.Name = "lblNombreUsuario";
             this.lblNombreUsuario.Size = new System.Drawing.Size(1023, 100);
             this.lblNombreUsuario.TabIndex = 1;
@@ -173,9 +198,21 @@
             this.lblNombreUsuario.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblNombreUsuario.Click += new System.EventHandler(this.lblNombreUsuario_Click);
             // 
+            // lblBienvenida
+            // 
+            this.lblBienvenida.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblBienvenida.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.lblBienvenida.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblBienvenida.Location = new System.Drawing.Point(0, 160);
+            this.lblBienvenida.Name = "lblBienvenida";
+            this.lblBienvenida.Size = new System.Drawing.Size(1023, 100);
+            this.lblBienvenida.TabIndex = 0;
+            this.lblBienvenida.Text = "BIENVENIDO AL SISTEMA";
+            this.lblBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmMenu
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1223, 611);
@@ -206,5 +243,7 @@
         private System.Windows.Forms.Panel pnlContenedor;
         private System.Windows.Forms.Label lblBienvenida;
         private System.Windows.Forms.Label lblNombreUsuario;
+        private System.Windows.Forms.Button btnReportes;
+        private System.Windows.Forms.Button btnCompra;
     }
 }

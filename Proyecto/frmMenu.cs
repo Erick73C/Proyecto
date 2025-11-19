@@ -43,34 +43,49 @@ namespace Proyecto
             switch (usuarioActual.Rol)
             {
                 case "Administrador":
+                    btnCompra.Enabled = true;
                     btnCrud1.Enabled = true;  // Usuarios
                     btnCrud2.Enabled = true;  // Productos
                     btnCrud3.Enabled = true;  // Ventas
+                    btnReportes.Enabled = true;
                     break;
 
                 case "Recursos Humanos":
+                    btnCompra.Enabled = false;
                     btnCrud1.Enabled = true;
                     btnCrud2.Enabled = false;
                     btnCrud3.Enabled = false;
+                    btnReportes.Enabled = false;
                     break;
 
                 case "Almacenista":
+                    btnCompra.Enabled = false;
                     btnCrud1.Enabled = false;
                     btnCrud2.Enabled = true;
                     btnCrud3.Enabled = false;
+                    btnReportes.Enabled = false;
                     break;
 
                 case "Vendedor":
+                    btnCompra.Enabled = false;
                     btnCrud1.Enabled = false;
                     btnCrud2.Enabled = false;
                     btnCrud3.Enabled = true;
+                    btnReportes.Enabled = true;
                     break;
-
+                case "Cliente":
+                    btnCompra.Enabled = true;
+                    btnCrud1.Visible = false;
+                    btnCrud2.Visible = false;
+                    btnCrud3.Visible = false;
+                    btnReportes.Visible = false;
+                    break;
                 default:
                     // En caso de rol desconocido, por seguridad, desactiva todo
                     btnCrud1.Enabled = false;
                     btnCrud2.Enabled = false;
                     btnCrud3.Enabled = false;
+                    btnReportes.Enabled = false;
                     break;
             }
         }
@@ -191,7 +206,23 @@ namespace Proyecto
 
         }
         #endregion
+
         #endregion
 
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new frmReportes());
+        }
+
+        private void btnCompra_Click(object sender, EventArgs e)
+        {
+            if (usuarioActual == null)
+            {
+                MessageBox.Show("No se recibió información del usuario.");
+                return;
+            }
+
+            AbrirFormulario(new frmClienteCompras(usuarioActual.IdUsuario));
+        }
     }
 }

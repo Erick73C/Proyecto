@@ -14,7 +14,7 @@ namespace Proyecto.Datos
     public class clsDaoUsuarios
     {
         private readonly string conexion =
-            "server=localhost; database=ventasbd; uid=root; pwd=;";
+            "server=localhost; database=VentasBD; uid=root; pwd=2218914015;";
 
         /// <summary>
         /// Inserta un nuevo usuario en la base de datos.
@@ -28,6 +28,13 @@ namespace Proyecto.Datos
 
             try
             {
+                if (ExisteUsuarioPorDatos(usuario.Nombre.Trim(),
+                    usuario.ApellidoPaterno.Trim(),
+                    usuario.ApellidoMaterno?.Trim() ?? string.Empty,
+                    usuario.Correo.Trim()))
+                {
+                    throw new ApplicationException("Ya existe un usuario con el mismo nombre, apellidos o correo.");
+                }
                 conn = new MySqlConnection(conexion);
                 conn.Open();
 
@@ -331,7 +338,40 @@ namespace Proyecto.Datos
                 conn?.Close();
             }
         }
+        public bool ExisteUsuarioPorDatos(string nombre, string apellidoPaterno, string apellidoMaterno, string correo)
+        {
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
 
+                string query = @"SELECT COUNT(*) FROM usuarios
+                 WHERE Nombre = @Nombre
+                   AND ApellidoPaterno = @ApellidoPaterno
+                   AND ApellidoMaterno = @ApellidoMaterno
+                   AND Correo = @Correo";
+
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Nombre", nombre);
+                cmd.Parameters.AddWithValue("@ApellidoPaterno", apellidoPaterno);
+                cmd.Parameters.AddWithValue("@ApellidoMaterno", apellidoMaterno);
+                cmd.Parameters.AddWithValue("@Correo", correo);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al verificar existencia del usuario.", ex);
+            }
+            finally
+            {
+                cmd?.Dispose();
+                conn?.Close();
+            }
+        }
 
 
     }

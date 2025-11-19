@@ -41,7 +41,7 @@ namespace Proyecto
             validarContra();
 
             if (!string.IsNullOrEmpty(errnombre.GetError(txtNombre))) return false;
-            if (!string.IsNullOrEmpty(errapellido.GetError(txtApellido))) return false;
+            if (!string.IsNullOrEmpty(errapellido.GetError(txtApellidoPaterno))) return false;
             if (!string.IsNullOrEmpty(erremail.GetError(txtEmail))) return false;
             if (!string.IsNullOrEmpty(errorusuario.GetError(txtUsuario))) return false;
             if (!string.IsNullOrEmpty(errorpass.GetError(txtContrasenia))) return false;
@@ -74,20 +74,20 @@ namespace Proyecto
         {
             string patron = @"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ'\s]+$";
 
-            if (string.IsNullOrWhiteSpace(txtApellido.Text))
+            if (string.IsNullOrWhiteSpace(txtApellidoPaterno.Text))
             {
-                txtApellido.BackColor = Color.IndianRed;
-                errapellido.SetError(txtApellido, "Debe escribir el apellido");
+                txtApellidoPaterno.BackColor = Color.IndianRed;
+                errapellido.SetError(txtApellidoPaterno, "Debe escribir el apellido");
             }
-            else if (!Regex.IsMatch(txtApellido.Text, patron))
+            else if (!Regex.IsMatch(txtApellidoPaterno.Text, patron))
             {
-                txtApellido.BackColor = Color.IndianRed;
-                errapellido.SetError(txtApellido, "El apellido no puede contener números ni símbolos");
+                txtApellidoPaterno.BackColor = Color.IndianRed;
+                errapellido.SetError(txtApellidoPaterno, "El apellido no puede contener números ni símbolos");
             }
             else
             {
                 errapellido.Clear();
-                txtApellido.BackColor = Color.White;
+                txtApellidoPaterno.BackColor = Color.White;
             }
         }
 
@@ -180,13 +180,18 @@ namespace Proyecto
                 MessageBox.Show("El usuario ya existe. Intenta con otro nombre.");
                 return;
             }
+            if (dao.ExisteUsuario(txtEmail.Text))
+            {
+                MessageBox.Show("El correo ya está registrado. Intenta con otro.");
+                return;
+            }
 
             // Crear objeto Usuario
             Usuario nuevo = new Usuario
             {
                 Nombre = txtNombre.Text.Trim(),
-                ApellidoPaterno = txtApellido.Text.Trim(),
-                ApellidoMaterno = "", // Si no lo usas en la UI
+                ApellidoPaterno = txtApellidoPaterno.Text.Trim(),
+                ApellidoMaterno = txtApellidoMaterno.Text.Trim(),
                 Correo = txtEmail.Text.Trim(),
                 UsuarioNombre = txtUsuario.Text.Trim(),
                 Contrasena = txtContrasenia.Text.Trim(),

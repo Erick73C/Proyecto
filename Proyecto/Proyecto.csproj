@@ -98,10 +98,18 @@
     <Compile Include="Datos\clsDaoProductos.cs" />
     <Compile Include="Datos\clsDaoUsuarios.cs" />
     <Compile Include="Datos\clsDaoVentas.cs" />
+    <Compile Include="Datos\clsReportes.cs" />
     <Compile Include="Datos\DetalleVenta.cs" />
     <Compile Include="Datos\Producto.cs" />
+    <Compile Include="Datos\Reporte.cs" />
     <Compile Include="Datos\Usuario.cs" />
     <Compile Include="Datos\Venta.cs" />
+    <Compile Include="frmClienteCompras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmClienteCompras.Designer.cs">
+      <DependentUpon>frmClienteCompras.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCrudProductos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,8 +146,17 @@
     <Compile Include="frmRegistro.Designer.cs">
       <DependentUpon>frmRegistro.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReportes.Designer.cs">
+      <DependentUpon>frmReportes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmClienteCompras.resx">
+      <DependentUpon>frmClienteCompras.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCrudProductos.resx">
       <DependentUpon>frmCrudProductos.cs</DependentUpon>
     </EmbeddedResource>
@@ -157,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRegistro.resx">
       <DependentUpon>frmRegistro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReportes.resx">
+      <DependentUpon>frmReportes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

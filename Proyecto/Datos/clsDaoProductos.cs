@@ -14,7 +14,7 @@ namespace Proyecto.Datos
     public class clsDaoProductos
     {
         private readonly string conexion =
-            "server=localhost; database=ventasbd; uid=root; pwd=;";
+            "server=localhost; database=VentasBD; uid=root; pwd=2218914015;";
 
 
         /// <summary>

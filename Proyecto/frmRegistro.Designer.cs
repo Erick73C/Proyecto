@@ -37,7 +37,7 @@
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblContrasenia = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
-            this.txtApellido = new System.Windows.Forms.TextBox();
+            this.txtApellidoPaterno = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.txtContrasenia = new System.Windows.Forms.TextBox();
@@ -48,6 +48,8 @@
             this.erremail = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorusuario = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorpass = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtApellidoMaterno = new System.Windows.Forms.TextBox();
             this.panelRegistro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errnombre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errapellido)).BeginInit();
@@ -60,6 +62,8 @@
             // 
             this.panelRegistro.BackColor = System.Drawing.Color.White;
             this.panelRegistro.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelRegistro.Controls.Add(this.label6);
+            this.panelRegistro.Controls.Add(this.txtApellidoMaterno);
             this.panelRegistro.Controls.Add(this.lblTitulo);
             this.panelRegistro.Controls.Add(this.lblNombre);
             this.panelRegistro.Controls.Add(this.lblApellido);
@@ -67,15 +71,15 @@
             this.panelRegistro.Controls.Add(this.lblUsuario);
             this.panelRegistro.Controls.Add(this.lblContrasenia);
             this.panelRegistro.Controls.Add(this.txtNombre);
-            this.panelRegistro.Controls.Add(this.txtApellido);
+            this.panelRegistro.Controls.Add(this.txtApellidoPaterno);
             this.panelRegistro.Controls.Add(this.txtEmail);
             this.panelRegistro.Controls.Add(this.txtUsuario);
             this.panelRegistro.Controls.Add(this.txtContrasenia);
             this.panelRegistro.Controls.Add(this.btnRegistrar);
             this.panelRegistro.Controls.Add(this.btnVolver);
-            this.panelRegistro.Location = new System.Drawing.Point(200, 25);
+            this.panelRegistro.Location = new System.Drawing.Point(200, 7);
             this.panelRegistro.Name = "panelRegistro";
-            this.panelRegistro.Size = new System.Drawing.Size(400, 400);
+            this.panelRegistro.Size = new System.Drawing.Size(400, 418);
             this.panelRegistro.TabIndex = 0;
             // 
             // lblTitulo
@@ -83,9 +87,9 @@
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblTitulo.Location = new System.Drawing.Point(125, 25);
+            this.lblTitulo.Location = new System.Drawing.Point(109, 24);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(150, 25);
+            this.lblTitulo.Size = new System.Drawing.Size(191, 32);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "CREAR CUENTA";
             // 
@@ -94,9 +98,9 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblNombre.Location = new System.Drawing.Point(50, 72);
+            this.lblNombre.Location = new System.Drawing.Point(45, 89);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(62, 19);
+            this.lblNombre.Size = new System.Drawing.Size(77, 23);
             this.lblNombre.TabIndex = 1;
             this.lblNombre.Text = "Nombre:";
             // 
@@ -105,20 +109,20 @@
             this.lblApellido.AutoSize = true;
             this.lblApellido.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblApellido.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblApellido.Location = new System.Drawing.Point(50, 112);
+            this.lblApellido.Location = new System.Drawing.Point(6, 125);
             this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(61, 19);
+            this.lblApellido.Size = new System.Drawing.Size(140, 23);
             this.lblApellido.TabIndex = 2;
-            this.lblApellido.Text = "Apellido:";
+            this.lblApellido.Text = "Apellido Paterno:";
             // 
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblEmail.Location = new System.Drawing.Point(50, 152);
+            this.lblEmail.Location = new System.Drawing.Point(50, 197);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(44, 19);
+            this.lblEmail.Size = new System.Drawing.Size(55, 23);
             this.lblEmail.TabIndex = 3;
             this.lblEmail.Text = "Email:";
             // 
@@ -127,9 +131,9 @@
             this.lblUsuario.AutoSize = true;
             this.lblUsuario.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblUsuario.Location = new System.Drawing.Point(50, 192);
+            this.lblUsuario.Location = new System.Drawing.Point(50, 237);
             this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(59, 19);
+            this.lblUsuario.Size = new System.Drawing.Size(72, 23);
             this.lblUsuario.TabIndex = 4;
             this.lblUsuario.Text = "Usuario:";
             // 
@@ -138,9 +142,9 @@
             this.lblContrasenia.AutoSize = true;
             this.lblContrasenia.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblContrasenia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblContrasenia.Location = new System.Drawing.Point(50, 232);
+            this.lblContrasenia.Location = new System.Drawing.Point(50, 277);
             this.lblContrasenia.Name = "lblContrasenia";
-            this.lblContrasenia.Size = new System.Drawing.Size(82, 19);
+            this.lblContrasenia.Size = new System.Drawing.Size(101, 23);
             this.lblContrasenia.TabIndex = 5;
             this.lblContrasenia.Text = "Contraseña:";
             // 
@@ -148,29 +152,29 @@
             // 
             this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtNombre.Location = new System.Drawing.Point(150, 70);
+            this.txtNombre.Location = new System.Drawing.Point(150, 87);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(200, 25);
+            this.txtNombre.Size = new System.Drawing.Size(200, 30);
             this.txtNombre.TabIndex = 0;
             this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
-            // txtApellido
+            // txtApellidoPaterno
             // 
-            this.txtApellido.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtApellido.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtApellido.Location = new System.Drawing.Point(150, 110);
-            this.txtApellido.Name = "txtApellido";
-            this.txtApellido.Size = new System.Drawing.Size(200, 25);
-            this.txtApellido.TabIndex = 1;
-            this.txtApellido.TextChanged += new System.EventHandler(this.txtApellido_TextChanged);
+            this.txtApellidoPaterno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtApellidoPaterno.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtApellidoPaterno.Location = new System.Drawing.Point(150, 123);
+            this.txtApellidoPaterno.Name = "txtApellidoPaterno";
+            this.txtApellidoPaterno.Size = new System.Drawing.Size(200, 30);
+            this.txtApellidoPaterno.TabIndex = 1;
+            this.txtApellidoPaterno.TextChanged += new System.EventHandler(this.txtApellido_TextChanged);
             // 
             // txtEmail
             // 
             this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtEmail.Location = new System.Drawing.Point(150, 150);
+            this.txtEmail.Location = new System.Drawing.Point(150, 195);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(200, 25);
+            this.txtEmail.Size = new System.Drawing.Size(200, 30);
             this.txtEmail.TabIndex = 2;
             this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
             // 
@@ -178,9 +182,9 @@
             // 
             this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtUsuario.Location = new System.Drawing.Point(150, 190);
+            this.txtUsuario.Location = new System.Drawing.Point(150, 235);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(200, 25);
+            this.txtUsuario.Size = new System.Drawing.Size(200, 30);
             this.txtUsuario.TabIndex = 3;
             this.txtUsuario.Text = " ";
             this.txtUsuario.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
@@ -189,9 +193,9 @@
             // 
             this.txtContrasenia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtContrasenia.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtContrasenia.Location = new System.Drawing.Point(150, 230);
+            this.txtContrasenia.Location = new System.Drawing.Point(150, 275);
             this.txtContrasenia.Name = "txtContrasenia";
-            this.txtContrasenia.Size = new System.Drawing.Size(200, 25);
+            this.txtContrasenia.Size = new System.Drawing.Size(200, 30);
             this.txtContrasenia.TabIndex = 4;
             this.txtContrasenia.UseSystemPasswordChar = true;
             this.txtContrasenia.TextChanged += new System.EventHandler(this.txtContrasenia_TextChanged);
@@ -203,7 +207,7 @@
             this.btnRegistrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegistrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnRegistrar.ForeColor = System.Drawing.Color.White;
-            this.btnRegistrar.Location = new System.Drawing.Point(115, 281);
+            this.btnRegistrar.Location = new System.Drawing.Point(115, 326);
             this.btnRegistrar.Name = "btnRegistrar";
             this.btnRegistrar.Size = new System.Drawing.Size(150, 35);
             this.btnRegistrar.TabIndex = 5;
@@ -219,7 +223,7 @@
             this.btnVolver.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnVolver.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.btnVolver.Location = new System.Drawing.Point(130, 326);
+            this.btnVolver.Location = new System.Drawing.Point(130, 371);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(120, 30);
             this.btnVolver.TabIndex = 6;
@@ -246,6 +250,26 @@
             // errorpass
             // 
             this.errorpass.ContainerControl = this;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label6.Location = new System.Drawing.Point(6, 161);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(146, 23);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Apellido Materno:";
+            // 
+            // txtApellidoMaterno
+            // 
+            this.txtApellidoMaterno.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtApellidoMaterno.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtApellidoMaterno.Location = new System.Drawing.Point(150, 159);
+            this.txtApellidoMaterno.Name = "txtApellidoMaterno";
+            this.txtApellidoMaterno.Size = new System.Drawing.Size(200, 30);
+            this.txtApellidoMaterno.TabIndex = 7;
             // 
             // frmRegistro
             // 
@@ -283,7 +307,7 @@
 
         // Nuevas variables con nombres descriptivos
         private System.Windows.Forms.TextBox txtNombre;
-        private System.Windows.Forms.TextBox txtApellido;
+        private System.Windows.Forms.TextBox txtApellidoPaterno;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.TextBox txtContrasenia;
@@ -301,5 +325,7 @@
         private System.Windows.Forms.ErrorProvider erremail;
         private System.Windows.Forms.ErrorProvider errorusuario;
         private System.Windows.Forms.ErrorProvider errorpass;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtApellidoMaterno;
     }
 }
