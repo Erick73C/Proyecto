@@ -14,7 +14,7 @@ namespace Proyecto.Datos
     public class clsDaoUsuarios
     {
         private readonly string conexion =
-            "server=localhost; database=VentasBD; uid=root; pwd=2218914015;";
+            "server=localhost; database=VentasBD; uid=root; pwd= ;";
 
         /// <summary>
         /// Inserta un nuevo usuario en la base de datos.

@@ -186,7 +186,6 @@ namespace Proyecto
                 return;
             }
 
-            // Crear objeto Usuario
             Usuario nuevo = new Usuario
             {
                 Nombre = txtNombre.Text.Trim(),
@@ -195,7 +194,7 @@ namespace Proyecto
                 Correo = txtEmail.Text.Trim(),
                 UsuarioNombre = txtUsuario.Text.Trim(),
                 Contrasena = txtContrasenia.Text.Trim(),
-                Rol = "Vendedor", // O puedes agregar un ComboBox más adelante
+                Rol = "Cliente", //Rol por defecto de cliente
                 FechaRegistro = DateTime.Now
             };
 
@@ -238,5 +237,10 @@ namespace Proyecto
         }
 
         #endregion
+
+        private void frmRegistro_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

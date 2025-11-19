@@ -14,7 +14,31 @@ namespace Proyecto.Datos
     public class clsReportes
     {
         private readonly string conexion =
-            "server=localhost; database=VentasBD; uid=root; pwd=2218914015;";
+            "server=localhost; database=VentasBD; uid=root; pwd= ;";
+
+        private readonly string[] tiposValidos = new[] { "venta", "compra", "devolución" };
+
+        /// <summary>
+        /// Valida los datos de un reporte antes de guardarlo (insertar o actualizar).
+        /// </summary>
+        /// <param name="reporte"></param>
+        /// <param name="esInsert"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        private void ValidarReporteParaGuardar(Reporte reporte, bool esInsert)
+        {
+            if (reporte == null) throw new ArgumentNullException(nameof(reporte));
+            if (reporte.IdUsuario <= 0) throw new ArgumentException("IdUsuario inválido.");
+            if (reporte.IdProducto <= 0) throw new ArgumentException("IdProducto inválido.");
+            if (reporte.Cantidad <= 0) throw new ArgumentException("Cantidad debe ser mayor a 0.");
+            if (reporte.Total < 0) throw new ArgumentException("Total inválido.");
+            if (string.IsNullOrWhiteSpace(reporte.TipoReporte)) throw new ArgumentException("TipoReporte requerido.");
+            bool tipoOk = false;
+            foreach (var t in tiposValidos) if (t.Equals(reporte.TipoReporte, StringComparison.OrdinalIgnoreCase)) { tipoOk = true; break; }
+            if (!tipoOk) throw new ArgumentException($"TipoReporte inválido. Valores permitidos: {string.Join(", ", tiposValidos)}");
+
+            if (!esInsert && reporte.IdReporte <= 0) throw new ArgumentException("IdReporte inválido para actualización.");
+        }
 
         /// <summary>
         /// Inserta un nuevo reporte en la base de datos.
@@ -23,6 +47,7 @@ namespace Proyecto.Datos
         /// <returns>True si se insertó correctamente; de lo contrario lanza excepción.</returns>
         public bool Insertar(Reporte reporte)
         {
+            ValidarReporteParaGuardar(reporte, esInsert: true);
             MySqlConnection conn = null;
             MySqlCommand cmd = null;
 
@@ -32,9 +57,8 @@ namespace Proyecto.Datos
                 conn.Open();
 
                 string query = @"INSERT INTO reportes 
-                                (IdUsuario, IdProducto, tipo_reporte, cantidad, total)
-                                VALUES 
-                                (@IdUsuario, @IdProducto, @TipoReporte, @Cantidad, @Total)";
+                                 (IdUsuario, IdProducto, TipoReporte, Cantidad, Total, FechaReporte)
+                                 VALUES (@IdUsuario, @IdProducto, @TipoReporte, @Cantidad, @Total, NOW())";
 
                 cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@IdUsuario", reporte.IdUsuario);
@@ -459,5 +483,80 @@ namespace Proyecto.Datos
                 conn?.Close();
             }
         }
+
+        /// <summary>
+        /// Obtiene todos los reportes con los nombres del usuario y del producto.
+        /// Devuelve una lista del modelo Reporte pero enriquecido.
+        /// </summary>
+        /// <returns>Lista de objetos Reporte con nombres.</returns>
+        public List<Reporte> ObtenerTodosConDetalles()
+        {
+            List<Reporte> lista = new List<Reporte>();
+
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+
+                string query = @"
+            SELECT 
+                r.IdReporte,
+                r.IdUsuario,
+                u.Nombre AS NombreUsuario,
+                r.IdProducto,
+                p.Nombre AS NombreProducto,
+                r.FechaReporte,
+                r.TipoReporte,
+                r.Cantidad,
+                r.Total
+            FROM reportes r
+            INNER JOIN usuarios u ON r.IdUsuario = u.IdUsuario
+            INNER JOIN productos p ON r.IdProducto = p.IdProducto
+            ORDER BY r.FechaReporte DESC";
+
+                cmd = new MySqlCommand(query, conn);
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Reporte r = new Reporte
+                    {
+                        IdReporte = Convert.ToInt32(reader["IdReporte"]),
+                        IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
+                        IdProducto = Convert.ToInt32(reader["IdProducto"]),
+
+                        // nuevos datos desde JOIN
+                        NombreUsuario = reader["NombreUsuario"].ToString(),
+                        NombreProducto = reader["NombreProducto"].ToString(),
+
+                        FechaReporte = Convert.ToDateTime(reader["FechaReporte"]),
+                        TipoReporte = reader["TipoReporte"].ToString(),
+                        Cantidad = Convert.ToInt32(reader["Cantidad"]),
+                        Total = Convert.ToDecimal(reader["Total"])
+                    };
+
+                    lista.Add(r);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener reportes con detalles.", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
+        }
+
+
     }
 }

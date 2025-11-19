@@ -14,7 +14,7 @@ namespace Proyecto.Datos
     public class clsDaoVentas
     {
         private readonly string conexion =
-            "server=localhost; database=VentasBD; uid=root; pwd=2218914015;";
+            "server=localhost; database=VentasBD; uid=root; pwd= ;";
 
         #region INSERTAR VENTA
 

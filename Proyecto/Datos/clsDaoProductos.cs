@@ -14,7 +14,7 @@ namespace Proyecto.Datos
     public class clsDaoProductos
     {
         private readonly string conexion =
-            "server=localhost; database=VentasBD; uid=root; pwd=2218914015;";
+            "server=localhost; database=VentasBD; uid=root; pwd=;";
 
 
         /// <summary>
@@ -309,6 +309,54 @@ namespace Proyecto.Datos
                 conn?.Dispose();
             }
         }
+
+        public Producto ObtenerPorNombreExacto(string nombre)
+        {
+            Producto producto = null;
+
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+
+                string query = "SELECT * FROM productos WHERE Nombre = @Nombre LIMIT 1";
+
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Nombre", nombre);
+
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    producto = new Producto
+                    {
+                        IdProducto = Convert.ToInt32(reader["IdProducto"]),
+                        Nombre = reader["Nombre"].ToString(),
+                        Descripcion = reader["Descripcion"].ToString(),
+                        Existencia = Convert.ToInt32(reader["Existencia"]),
+                        PrecioUnitario = Convert.ToDecimal(reader["PrecioUnitario"])
+                    };
+                }
+
+                return producto;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener producto por nombre.", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+                conn?.Dispose();
+            }
+        }
+
 
     }
 }

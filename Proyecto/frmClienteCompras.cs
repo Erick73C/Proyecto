@@ -13,9 +13,13 @@ namespace Proyecto
 {
     public partial class frmClienteCompras : Form
     {
+        #region variables globales
         private clsReportes daoReportes;
         private List<DetalleCompra> carrito;
         private decimal totalCompra;
+        #endregion
+
+        #region Metodos Auxiliares
         public frmClienteCompras(int idUsuario)
         {
             InitializeComponent();
@@ -31,6 +35,12 @@ namespace Proyecto
             LimpiarFormulario();
             ActualizarCarrito();
             ConfigurarDataGridViews();
+            CompletadoDeProductos();
+
+            txtIdProducto.ReadOnly = true;
+            txtNombreProducto.ReadOnly = true;
+            txtPrecioUnitario.ReadOnly = true;
+
         }
         private void ConfigurarDataGridViews()
         {
@@ -76,6 +86,7 @@ namespace Proyecto
         private void LimpiarFormulario()
         {
             txtIdProducto.Clear();
+            txtBuscarProducto.Clear();
             txtNombreProducto.Clear();
             txtPrecioUnitario.Clear();
             txtCantidad.Text = "1";
@@ -91,50 +102,129 @@ namespace Proyecto
 
             lblCantidadItems.Text = $"{carrito.Count} items en el carrito";
         }
-        private bool ValidarProducto()
+        private void GenerarTicket()
         {
-            if (string.IsNullOrWhiteSpace(txtIdProducto.Text))
+            StringBuilder ticket = new StringBuilder();
+            ticket.AppendLine("=== TICKET DE COMPRA ===");
+            ticket.AppendLine($"Fecha: {DateTime.Now:dd/MM/yyyy HH:mm}");
+            ticket.AppendLine($"Cliente ID: {txtIdUsuario.Text}");
+            ticket.AppendLine("----------------------------------------");
+            ticket.AppendLine("PRODUCTOS:");
+            ticket.AppendLine();
+
+            foreach (var item in carrito)
             {
-                MessageBox.Show("Ingrese el ID del producto", "Validación",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtIdProducto.Focus();
-                return false;
+                ticket.AppendLine($"{item.NombreProducto}");
+                ticket.AppendLine($"  Cantidad: {item.Cantidad} x {item.PrecioUnitario:C2} = {item.Subtotal:C2}");
             }
 
-            if (string.IsNullOrWhiteSpace(txtNombreProducto.Text))
+            ticket.AppendLine("----------------------------------------");
+            ticket.AppendLine($"TOTAL: {totalCompra:C2}");
+            ticket.AppendLine("========================================");
+            ticket.AppendLine("¡Gracias por su compra!");
+
+            // Mostrar ticket en el TextBox
+            txtTicket.Text = ticket.ToString();
+
+            // También podrías guardar el ticket en un archivo
+            // GuardarTicketArchivo(ticket.ToString());
+        }
+        private void CompletadoDeProductos()
+        {
+            clsDaoProductos dao = new clsDaoProductos();
+            var productos = dao.ObtenerTodosLosProductos(); // Método que ya debes tener
+
+            AutoCompleteStringCollection lista = new AutoCompleteStringCollection();
+
+            foreach (var p in productos)
             {
-                MessageBox.Show("Ingrese el nombre del producto", "Validación",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtNombreProducto.Focus();
-                return false;
+                lista.Add(p.Nombre);  // autocompleta solo por nombre
             }
 
-            if (string.IsNullOrWhiteSpace(txtPrecioUnitario.Text) ||
-                !decimal.TryParse(txtPrecioUnitario.Text, out _))
-            {
-                MessageBox.Show("Ingrese un precio unitario válido", "Validación",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPrecioUnitario.Focus();
-                return false;
-            }
+            txtBuscarProducto.AutoCompleteCustomSource = lista;
+        }
 
-            if (string.IsNullOrWhiteSpace(txtCantidad.Text) ||
-                !int.TryParse(txtCantidad.Text, out _) ||
-                Convert.ToInt32(txtCantidad.Text) <= 0)
-            {
-                MessageBox.Show("Ingrese una cantidad válida", "Validación",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCantidad.Focus();
-                return false;
-            }
+        #endregion
+
+        #region Validaciones 
+        private bool ValidarTodoProducto()
+        {
+            validarBusquedaProducto();
+            validarProductoCargado();
+            validarCantidad();
+
+            if (!string.IsNullOrEmpty(errBuscarProducto.GetError(txtBuscarProducto))) return false;
+            if (!string.IsNullOrEmpty(errProducto.GetError(txtNombreProducto))) return false;
+            if (!string.IsNullOrEmpty(errCantidad.GetError(txtCantidad))) return false;
 
             return true;
         }
 
+        /// <summary>
+        /// Verifica que el usuario haya buscado o escrito un nombre válido.
+        /// </summary>
+        private void validarBusquedaProducto()
+        {
+            if (string.IsNullOrWhiteSpace(txtBuscarProducto.Text))
+            {
+                txtBuscarProducto.BackColor = Color.IndianRed;
+                errBuscarProducto.SetError(txtBuscarProducto, "Debe escribir el nombre del producto");
+            }
+            else
+            {
+                errBuscarProducto.Clear();
+                txtBuscarProducto.BackColor = Color.White;
+            }
+        }
+
+        /// <summary>
+        /// Verifica que el producto haya sido cargado correctamente desde BD.
+        /// </summary>
+        private void validarProductoCargado()
+        {
+            if (string.IsNullOrWhiteSpace(txtIdProducto.Text) ||
+                string.IsNullOrWhiteSpace(txtNombreProducto.Text) ||
+                string.IsNullOrWhiteSpace(txtPrecioUnitario.Text))
+            {
+                txtNombreProducto.BackColor = Color.IndianRed;
+                errProducto.SetError(txtNombreProducto, "Debe seleccionar un producto válido de la lista");
+            }
+            else
+            {
+                errProducto.Clear();
+                txtNombreProducto.BackColor = Color.White;
+            }
+        }
+
+        /// <summary>
+        /// Verifica que la cantidad sea numérica y mayor a 0.
+        /// </summary>
+        private void validarCantidad()
+        {
+            if (string.IsNullOrWhiteSpace(txtCantidad.Text))
+            {
+                txtCantidad.BackColor = Color.IndianRed;
+                errCantidad.SetError(txtCantidad, "Debe ingresar una cantidad");
+            }
+            else if (!int.TryParse(txtCantidad.Text, out int c) || c <= 0)
+            {
+                txtCantidad.BackColor = Color.IndianRed;
+                errCantidad.SetError(txtCantidad, "La cantidad debe ser un número mayor a cero");
+            }
+            else
+            {
+                errCantidad.Clear();
+                txtCantidad.BackColor = Color.White;
+            }
+        }
+
+        #endregion
+
+        #region Elementos de Interfaz
         private void btnAgregarCarrito_Click(object sender, EventArgs e)
         {
             {
-                if (!ValidarProducto()) return;
+                if (!ValidarTodoProducto()) return;
 
                 try
                 {
@@ -231,7 +321,7 @@ namespace Proyecto
                     {
                         IdUsuario = Convert.ToInt32(txtIdUsuario.Text),
                         IdProducto = item.IdProducto,
-                        TipoReporte = "Venta",
+                        TipoReporte = "venta",
                         Cantidad = item.Cantidad,
                         Total = item.Subtotal
                     };
@@ -254,33 +344,6 @@ namespace Proyecto
                 MessageBox.Show($"Error al finalizar compra: {ex.Message}", "Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        private void GenerarTicket()
-        {
-            StringBuilder ticket = new StringBuilder();
-            ticket.AppendLine("=== TICKET DE COMPRA ===");
-            ticket.AppendLine($"Fecha: {DateTime.Now:dd/MM/yyyy HH:mm}");
-            ticket.AppendLine($"Cliente ID: {txtIdUsuario.Text}");
-            ticket.AppendLine("----------------------------------------");
-            ticket.AppendLine("PRODUCTOS:");
-            ticket.AppendLine();
-
-            foreach (var item in carrito)
-            {
-                ticket.AppendLine($"{item.NombreProducto}");
-                ticket.AppendLine($"  Cantidad: {item.Cantidad} x {item.PrecioUnitario:C2} = {item.Subtotal:C2}");
-            }
-
-            ticket.AppendLine("----------------------------------------");
-            ticket.AppendLine($"TOTAL: {totalCompra:C2}");
-            ticket.AppendLine("========================================");
-            ticket.AppendLine("¡Gracias por su compra!");
-
-            // Mostrar ticket en el TextBox
-            txtTicket.Text = ticket.ToString();
-
-            // También podrías guardar el ticket en un archivo
-            // GuardarTicketArchivo(ticket.ToString());
         }
 
         private void btnImprimirTicket_Click(object sender, EventArgs e)
@@ -327,7 +390,24 @@ namespace Proyecto
                 e.Handled = true;
             }
         }
+
+        private void txtBuscarProducto_TextChanged(object sender, EventArgs e)
+        {
+            clsDaoProductos dao = new clsDaoProductos();
+            var producto = dao.ObtenerPorNombreExacto(txtBuscarProducto.Text);
+
+            if (producto != null)
+            {
+                txtIdProducto.Text = producto.IdProducto.ToString();
+                txtNombreProducto.Text = producto.Nombre;
+                txtPrecioUnitario.Text = producto.PrecioUnitario.ToString("0.00");
+            }
+        }
+        #endregion
+
+
     }
+
     public class DetalleCompra
     {
         public int IdProducto { get; set; }
