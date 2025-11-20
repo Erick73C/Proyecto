@@ -337,6 +337,7 @@ namespace Proyecto
         {
             modoNuevo = true;
             modoEditar = false;
+            dtpFechaRegistro.Enabled = false;
             LimpiarCampos();
             HabilitarCampos(true);
 

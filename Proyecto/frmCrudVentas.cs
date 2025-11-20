@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +19,7 @@ namespace Proyecto
         #region Variables globales
         private clsDaoVentas daoVentas = new clsDaoVentas();
         private bool modoEditar = false;
+        private bool modoNuevo = false;
 
         #endregion
 
@@ -88,6 +90,15 @@ namespace Proyecto
             btnGuardar.Enabled = false;
             btnEditar.Enabled = false;
             btnEliminar.Enabled = false;
+
+            dgvVentas.ReadOnly = true;
+            dgvVentas.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvVentas.MultiSelect = false;
+            dtpFecha.Enabled = false;
+            dgvVentas.AllowUserToAddRows = false;
+            dgvVentas.AllowUserToDeleteRows = false;
+
         }
 
         private void HabilitarCampos(bool habilitar)
@@ -124,10 +135,16 @@ namespace Proyecto
 
         private void validarCliente()
         {
+            string patron = @"^[A-Za-zÁÉÍÓÚáéíóúÑñÜü ]+$";
             if (string.IsNullOrWhiteSpace(txtCliente.Text))
             {
                 txtCliente.BackColor = Color.IndianRed;
                 errCliente.SetError(txtCliente, "Debe escribir el nombre del cliente.");
+            }
+            else if (!Regex.IsMatch(txtCliente.Text, patron))
+            {
+                txtCliente.BackColor = Color.IndianRed;
+                errCliente.SetError(txtCliente, "El nombre no debe contener números ni caracteres especiales.");
             }
             else if (txtCliente.Text.Length > 50)
             {
@@ -211,9 +228,17 @@ namespace Proyecto
 
         #region Elementos Ui
 
+        private void dgvVentas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         private void dgvVentas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+
             if (e.RowIndex < 0) return;
+
+            if (modoNuevo) return;
 
             DataGridViewRow row = dgvVentas.Rows[e.RowIndex];
 
@@ -280,12 +305,14 @@ namespace Proyecto
             LimpiarCampos();
 
             dtpFecha.Value = DateTime.Now;
+           dtpFecha.Enabled = false;
 
             HabilitarCampos(true);
 
             btnGuardar.Enabled = true;
             btnEditar.Enabled = false;
             btnEliminar.Enabled = false;
+            dgvVentas.Enabled = false;
             cbxProducto.SelectedIndex = -1;
         }
 
@@ -324,6 +351,9 @@ namespace Proyecto
                 btnGuardar.Enabled = false;
                 btnEditar.Enabled = false;
                 btnEliminar.Enabled = false;
+                modoNuevo = false;
+                dgvVentas.Enabled = true;
+
             }
             catch (Exception ex)
             {
@@ -350,6 +380,7 @@ namespace Proyecto
             btnGuardar.Enabled = true;
             btnEliminar.Enabled = false;
             btnEditar.Enabled = false;
+            dgvVentas.Enabled = true;
         }
 
         private void btnEliminar_Click_1(object sender, EventArgs e)
@@ -396,5 +427,6 @@ namespace Proyecto
         }
         #endregion
 
+       
     }
 }

@@ -283,7 +283,23 @@ namespace Proyecto.Datos
                 conn = new MySqlConnection(conexion);
                 conn.Open();
 
-                string query = "SELECT * FROM reportes WHERE IdUsuario = @IdUsuario";
+                string query = @"
+        SELECT 
+            r.IdReporte,
+            r.IdUsuario,
+            u.Nombre AS NombreUsuario,
+            r.IdProducto,
+            p.Nombre AS NombreProducto,
+            r.FechaReporte,
+            r.TipoReporte,
+            r.Cantidad,
+            r.Total
+        FROM reportes r
+        INNER JOIN usuarios u ON r.IdUsuario = u.IdUsuario
+        INNER JOIN productos p ON r.IdProducto = p.IdProducto
+        WHERE r.IdUsuario = @IdUsuario
+        ORDER BY r.FechaReporte DESC";
+
                 cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
 
@@ -295,11 +311,13 @@ namespace Proyecto.Datos
                     {
                         IdReporte = Convert.ToInt32(reader["IdReporte"]),
                         IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
+                        NombreUsuario = reader["NombreUsuario"].ToString(),
                         IdProducto = Convert.ToInt32(reader["IdProducto"]),
-                        FechaReporte = Convert.ToDateTime(reader["fecha_reporte"]),
-                        TipoReporte = reader["tipo_reporte"].ToString(),
-                        Cantidad = Convert.ToInt32(reader["cantidad"]),
-                        Total = Convert.ToDecimal(reader["total"])
+                        NombreProducto = reader["NombreProducto"].ToString(),
+                        FechaReporte = Convert.ToDateTime(reader["FechaReporte"]),
+                        TipoReporte = reader["TipoReporte"].ToString(),
+                        Cantidad = Convert.ToInt32(reader["Cantidad"]),
+                        Total = Convert.ToDecimal(reader["Total"])
                     };
 
                     lista.Add(r);
@@ -309,7 +327,7 @@ namespace Proyecto.Datos
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al obtener reportes por usuario.", ex);
+                throw new ApplicationException("Error al obtener reportes por usuario (JOIN).", ex);
             }
             finally
             {
@@ -337,7 +355,23 @@ namespace Proyecto.Datos
                 conn = new MySqlConnection(conexion);
                 conn.Open();
 
-                string query = "SELECT * FROM reportes WHERE IdProducto = @IdProducto";
+                string query = @"
+        SELECT 
+            r.IdReporte,
+            r.IdUsuario,
+            u.Nombre AS NombreUsuario,
+            r.IdProducto,
+            p.Nombre AS NombreProducto,
+            r.FechaReporte,
+            r.TipoReporte,
+            r.Cantidad,
+            r.Total
+        FROM reportes r
+        INNER JOIN usuarios u ON r.IdUsuario = u.IdUsuario
+        INNER JOIN productos p ON r.IdProducto = p.IdProducto
+        WHERE r.IdProducto = @IdProducto
+        ORDER BY r.FechaReporte DESC";
+
                 cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@IdProducto", idProducto);
 
@@ -349,11 +383,13 @@ namespace Proyecto.Datos
                     {
                         IdReporte = Convert.ToInt32(reader["IdReporte"]),
                         IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
+                        NombreUsuario = reader["NombreUsuario"].ToString(),
                         IdProducto = Convert.ToInt32(reader["IdProducto"]),
-                        FechaReporte = Convert.ToDateTime(reader["fecha_reporte"]),
-                        TipoReporte = reader["tipo_reporte"].ToString(),
-                        Cantidad = Convert.ToInt32(reader["cantidad"]),
-                        Total = Convert.ToDecimal(reader["total"])
+                        NombreProducto = reader["NombreProducto"].ToString(),
+                        FechaReporte = Convert.ToDateTime(reader["FechaReporte"]),
+                        TipoReporte = reader["TipoReporte"].ToString(),
+                        Cantidad = Convert.ToInt32(reader["Cantidad"]),
+                        Total = Convert.ToDecimal(reader["Total"])
                     };
 
                     lista.Add(r);
@@ -363,7 +399,7 @@ namespace Proyecto.Datos
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al obtener reportes por producto.", ex);
+                throw new ApplicationException("Error al obtener reportes por producto (JOIN).", ex);
             }
             finally
             {
@@ -372,6 +408,7 @@ namespace Proyecto.Datos
                 conn?.Close();
             }
         }
+
 
         /// <summary>
         /// Obtiene reportes por tipo específico (Venta, Compra, Devolucion).
@@ -558,6 +595,71 @@ namespace Proyecto.Datos
                 conn?.Dispose();
             }
         }
+
+        public Reporte ObtenerPorIdConDetalles(int idReporte)
+        {
+            Reporte r = null;
+
+            MySqlConnection conn = null;
+            MySqlCommand cmd = null;
+            MySqlDataReader reader = null;
+
+            try
+            {
+                conn = new MySqlConnection(conexion);
+                conn.Open();
+
+                string query = @"
+        SELECT 
+            r.IdReporte,
+            r.IdUsuario,
+            u.Nombre AS NombreUsuario,
+            r.IdProducto,
+            p.Nombre AS NombreProducto,
+            r.FechaReporte,
+            r.TipoReporte,
+            r.Cantidad,
+            r.Total
+        FROM reportes r
+        INNER JOIN usuarios u ON r.IdUsuario = u.IdUsuario
+        INNER JOIN productos p ON r.IdProducto = p.IdProducto
+        WHERE r.IdReporte = @IdReporte";
+
+                cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@IdReporte", idReporte);
+
+                reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    r = new Reporte
+                    {
+                        IdReporte = Convert.ToInt32(reader["IdReporte"]),
+                        IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
+                        NombreUsuario = reader["NombreUsuario"].ToString(),
+                        IdProducto = Convert.ToInt32(reader["IdProducto"]),
+                        NombreProducto = reader["NombreProducto"].ToString(),
+                        FechaReporte = Convert.ToDateTime(reader["FechaReporte"]),
+                        TipoReporte = reader["TipoReporte"].ToString(),
+                        Cantidad = Convert.ToInt32(reader["Cantidad"]),
+                        Total = Convert.ToDecimal(reader["Total"])
+                    };
+                }
+
+                return r;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al obtener reporte por ID (JOIN).", ex);
+            }
+            finally
+            {
+                reader?.Close();
+                cmd?.Dispose();
+                conn?.Close();
+            }
+        }
+
 
 
     }

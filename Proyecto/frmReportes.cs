@@ -1,6 +1,7 @@
 ﻿using Proyecto.Datos;
 using System;
-
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Proyecto
@@ -25,6 +26,11 @@ namespace Proyecto
             CargarReportes();
             LimpiarFormulario();
             ConfigurarComboBoxTipo();
+            dgvReportes.ReadOnly = true;
+            dgvReportes.AllowUserToResizeRows = false;
+            dgvReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvReportes.MultiSelect = false;
+
         }
 
         private void ConfigurarComboBoxTipo()
@@ -52,6 +58,13 @@ namespace Proyecto
 
         private void ConfigurarDataGridView()
         {
+            dgvReportes.ReadOnly = true;
+            dgvReportes.AllowUserToAddRows = false;
+            dgvReportes.AllowUserToDeleteRows = false;
+            dgvReportes.AllowUserToResizeRows = false;
+            dgvReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvReportes.MultiSelect = false;
+
             if (dgvReportes.Columns.Count > 0)
             {
                 dgvReportes.Columns["IdReporte"].HeaderText = "ID Reporte";
@@ -77,51 +90,122 @@ namespace Proyecto
             reporteSeleccionado = null;
             btnGuardar.Text = "Guardar";
             btnEliminar.Enabled = false;
+            errIdUsuario.Clear();
+            errIdProducto.Clear();
+            txtIdUsuario.BackColor = Color.White;
+            txtIdProducto.BackColor = Color.White;
         }
 
-        private bool ValidarDatos()
+        private void CargarDatosFormulario()
         {
-            if (string.IsNullOrWhiteSpace(txtIdUsuario.Text))
+            if (reporteSeleccionado != null)
             {
-                MessageBox.Show("El ID Usuario es requerido", "Validación",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtIdUsuario.Focus();
-                return false;
-            }
+                txtIdReporte.Text = reporteSeleccionado.IdReporte.ToString();
+                txtIdUsuario.Text = reporteSeleccionado.IdUsuario.ToString();
+                txtIdProducto.Text = reporteSeleccionado.IdProducto.ToString();
+                cmbTipoReporte.SelectedItem = reporteSeleccionado.TipoReporte;
+                txtTotal.Text = reporteSeleccionado.Total.ToString("F2");
 
-            if (string.IsNullOrWhiteSpace(txtIdProducto.Text))
-            {
-                MessageBox.Show("El ID Producto es requerido", "Validación",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtIdProducto.Focus();
-                return false;
+                btnGuardar.Text = "Actualizar";
+                btnEliminar.Enabled = true;
             }
+        }
 
-            if (cmbTipoReporte.SelectedIndex == -1)
-            {
-                MessageBox.Show("Seleccione un tipo de reporte", "Validación",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbTipoReporte.Focus();
-                return false;
-            }
+        private void LimpiarOtrosCampos(TextBox actual)
+        {
+            if (actual != txtIdUsuario) txtIdUsuario.Clear();
+            if (actual != txtIdProducto) txtIdProducto.Clear();
+            if (actual != txtIdReporte) txtIdReporte.Clear();
+            txtTotal.Clear();
+            cmbTipoReporte.SelectedIndex = -1;
+        }
 
 
-            if (string.IsNullOrWhiteSpace(txtTotal.Text) || !decimal.TryParse(txtTotal.Text, out _))
-            {
-                MessageBox.Show("El total debe ser un valor decimal válido", "Validación",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtTotal.Focus();
-                return false;
-            }
+        #endregion
+
+        #region Validar datos 
+        private bool ValidarTodo()
+        {
+            validarIdUsuario();
+            validarIdProducto();
+            validarTipoReporte();
+            validarTotal();
+
+            if (!string.IsNullOrEmpty(errIdUsuario.GetError(txtIdUsuario))) return false;
+            if (!string.IsNullOrEmpty(errIdProducto.GetError(txtIdProducto))) return false;
+            if (!string.IsNullOrEmpty(errTipoReporte.GetError(cmbTipoReporte))) return false;
+            if (!string.IsNullOrEmpty(errTotal.GetError(txtTotal))) return false;
 
             return true;
         }
+
+        private void validarIdUsuario()
+        {
+            if (string.IsNullOrWhiteSpace(txtIdUsuario.Text))
+            {
+                txtIdUsuario.BackColor = Color.IndianRed;
+                errIdUsuario.SetError(txtIdUsuario, "Debe escribir el ID del usuario");
+            }
+            else
+            {
+                errIdUsuario.Clear();
+                txtIdUsuario.BackColor = Color.White;
+            }
+        }
+
+        private void validarIdProducto()
+        {
+            if (string.IsNullOrWhiteSpace(txtIdProducto.Text))
+            {
+                txtIdProducto.BackColor = Color.IndianRed;
+                errIdProducto.SetError(txtIdProducto, "Debe escribir el ID del producto");
+            }
+            else
+            {
+                errIdProducto.Clear();
+                txtIdProducto.BackColor = Color.White;
+            }
+        }
+
+        private void validarTipoReporte()
+        {
+            if (cmbTipoReporte.SelectedIndex == -1)
+            {
+                errTipoReporte.SetError(cmbTipoReporte, "Debe seleccionar un tipo de reporte");
+            }
+            else
+            {
+                errTipoReporte.Clear();
+            }
+        }
+
+        private void validarTotal()
+        {
+            if (string.IsNullOrWhiteSpace(txtTotal.Text))
+            {
+                txtTotal.BackColor = Color.IndianRed;
+                errTotal.SetError(txtTotal, "Debe escribir el total");
+            }
+            else if (!decimal.TryParse(txtTotal.Text, out _))
+            {
+                txtTotal.BackColor = Color.IndianRed;
+                errTotal.SetError(txtTotal, "Debe ser un valor decimal válido");
+            }
+            else
+            {
+                errTotal.Clear();
+                txtTotal.BackColor = Color.White;
+            }
+        }
+
+
+
         #endregion
 
         #region Elementos de  UI
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (!ValidarDatos()) return;
+            if (!ValidarTodo()) return;
 
             try
             {
@@ -207,33 +291,16 @@ namespace Proyecto
         {
             if (e.RowIndex >= 0)
             {
+                
                 DataGridViewRow row = dgvReportes.Rows[e.RowIndex];
+
+                
                 reporteSeleccionado = new Reporte
                 {
-                    IdReporte = Convert.ToInt32(row.Cells["IdReporte"].Value),
-                    IdUsuario = Convert.ToInt32(row.Cells["IdUsuario"].Value),
-                    IdProducto = Convert.ToInt32(row.Cells["IdProducto"].Value),
-                    FechaReporte = Convert.ToDateTime(row.Cells["FechaReporte"].Value),
-                    TipoReporte = row.Cells["TipoReporte"].Value.ToString(),
-                    Cantidad = Convert.ToInt32(row.Cells["Cantidad"].Value),
-                    Total = Convert.ToDecimal(row.Cells["Total"].Value)
+                    IdReporte = Convert.ToInt32(row.Cells["IdReporte"].Value)
                 };
 
-                CargarDatosFormulario();
-            }
-        }
-
-        private void CargarDatosFormulario()
-        {
-            if (reporteSeleccionado != null)
-            {
-                txtIdReporte.Text = reporteSeleccionado.IdReporte.ToString();
-                txtIdUsuario.Text = reporteSeleccionado.IdUsuario.ToString();
-                txtIdProducto.Text = reporteSeleccionado.IdProducto.ToString();
-                cmbTipoReporte.SelectedItem = reporteSeleccionado.TipoReporte;
-                txtTotal.Text = reporteSeleccionado.Total.ToString("F2");
-
-                btnGuardar.Text = "Actualizar";
+            
                 btnEliminar.Enabled = true;
             }
         }
@@ -313,6 +380,109 @@ namespace Proyecto
             }
         }
 
+        private void btnBuscarporID_Click(object sender, EventArgs e)
+        {
+            validarIdUsuario();
+            if (!string.IsNullOrEmpty(errIdUsuario.GetError(txtIdUsuario))) return;
+
+            try
+            {
+                int id = Convert.ToInt32(txtIdUsuario.Text);
+                var reportes = daoReportes.ObtenerPorUsuario(id);
+
+                if (reportes.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron reportes para ese usuario.");
+                }
+
+                dgvReportes.DataSource = reportes;
+                ConfigurarDataGridView();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al buscar: " + ex.Message);
+            }
+        }
+
+        private void txtIdUsuario_TextChanged(object sender, EventArgs e)
+        {
+            LimpiarOtrosCampos(txtIdUsuario);
+        }
+
+        private void txtIdProducto_TextChanged(object sender, EventArgs e)
+        {
+            LimpiarOtrosCampos(txtIdProducto);
+           
+        }
+
+        private void btnBuscarPorProducto_Click(object sender, EventArgs e)
+        {
+            validarIdProducto();
+            if (!string.IsNullOrEmpty(errIdProducto.GetError(txtIdProducto))) return;
+
+            try
+            {
+                int id = Convert.ToInt32(txtIdProducto.Text);
+                var reportes = daoReportes.ObtenerPorProducto(id);
+
+                if (reportes.Count == 0)
+                {
+                    MessageBox.Show("No se encontraron reportes para ese producto.");
+                }
+
+                dgvReportes.DataSource = reportes;
+                ConfigurarDataGridView();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al buscar: " + ex.Message);
+            }
+        }
+
+        private void btnBucarPorReporte_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtIdReporte.Text))
+            {
+                MessageBox.Show("Ingrese un ID de reporte para buscar.",
+                                "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                int id = Convert.ToInt32(txtIdReporte.Text);
+                var reporte = daoReportes.ObtenerPorIdConDetalles(id);
+
+                if (reporte == null)
+                {
+                    MessageBox.Show("No se encontró el reporte con ese ID.",
+                                    "Sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Mostrar un solo registro en la tabla
+                dgvReportes.DataSource = new List<Reporte> { reporte };
+                ConfigurarDataGridView();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al buscar reporte: " + ex.Message,
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void txtIdReporte_TextChanged(object sender, EventArgs e)
+        {
+            LimpiarOtrosCampos(txtIdReporte);
+        }
+
+        private void txtIdReporte_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                e.Handled = true;
+        }
+
         #endregion
+
     }
 }
