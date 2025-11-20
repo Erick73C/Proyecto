@@ -391,7 +391,7 @@ namespace Proyecto.Datos
                 conn = new MySqlConnection(conexion);
                 conn.Open();
 
-                string query = "SELECT * FROM reportes WHERE tipo_reporte = @TipoReporte";
+                string query = "SELECT * FROM reportes WHERE TipoReporte = @TipoReporte";
                 cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@TipoReporte", tipoReporte);
 
@@ -404,10 +404,11 @@ namespace Proyecto.Datos
                         IdReporte = Convert.ToInt32(reader["IdReporte"]),
                         IdUsuario = Convert.ToInt32(reader["IdUsuario"]),
                         IdProducto = Convert.ToInt32(reader["IdProducto"]),
-                        FechaReporte = Convert.ToDateTime(reader["fecha_reporte"]),
-                        TipoReporte = reader["tipo_reporte"].ToString(),
-                        Cantidad = Convert.ToInt32(reader["cantidad"]),
-                        Total = Convert.ToDecimal(reader["total"])
+
+                        FechaReporte = Convert.ToDateTime(reader["FechaReporte"]),
+                        TipoReporte = reader["TipoReporte"].ToString(),
+                        Cantidad = Convert.ToInt32(reader["Cantidad"]),
+                        Total = Convert.ToDecimal(reader["Total"])
                     };
 
                     lista.Add(r);
@@ -426,6 +427,7 @@ namespace Proyecto.Datos
                 conn?.Close();
             }
         }
+
 
         /// <summary>
         /// Obtiene reportes dentro de un rango de fechas.

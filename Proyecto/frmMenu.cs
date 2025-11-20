@@ -52,24 +52,35 @@ namespace Proyecto
 
                 case "Recursos Humanos":
                     btnCompra.Enabled = false;
+                    btnCompra.Visible = false;
                     btnCrud1.Enabled = true;
                     btnCrud2.Enabled = false;
+                    btnCrud2.Visible= false ;
                     btnCrud3.Enabled = false;
+                    btnCrud3.Visible = false;
                     btnReportes.Enabled = false;
+                    btnReportes.Visible = false;
                     break;
 
                 case "Almacenista":
                     btnCompra.Enabled = false;
+                    btnCompra.Visible = false;
                     btnCrud1.Enabled = false;
+                    btnCrud1.Visible = false;
                     btnCrud2.Enabled = true;
                     btnCrud3.Enabled = false;
+                    btnCrud3.Visible = false; 
                     btnReportes.Enabled = false;
+                    btnReportes.Visible = false;
                     break;
 
                 case "Vendedor":
                     btnCompra.Enabled = false;
+                    btnCompra.Visible = false;
                     btnCrud1.Enabled = false;
+                    btnCrud1.Visible = false;
                     btnCrud2.Enabled = false;
+                    btnCrud2.Visible = false;
                     btnCrud3.Enabled = true;
                     btnReportes.Enabled = true;
                     break;

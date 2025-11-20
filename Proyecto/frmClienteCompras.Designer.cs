@@ -44,7 +44,12 @@ namespace Proyecto
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelFormulario = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtBuscarProducto = new System.Windows.Forms.TextBox();
             this.btnAgregarCarrito = new System.Windows.Forms.Button();
             this.txtCantidad = new System.Windows.Forms.TextBox();
             this.lblCantidad = new System.Windows.Forms.Label();
@@ -70,11 +75,10 @@ namespace Proyecto
             this.lblTicket = new System.Windows.Forms.Label();
             this.btnFinalizarCompra = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.txtBuscarProducto = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.errBuscarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.errCantidad = new System.Windows.Forms.ErrorProvider(this.components);
             this.errProducto = new System.Windows.Forms.ErrorProvider(this.components);
+            this.dgvProductos = new System.Windows.Forms.DataGridView();
             this.panelFormulario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarrito)).BeginInit();
             this.panelCarrito.SuspendLayout();
@@ -82,6 +86,7 @@ namespace Proyecto
             ((System.ComponentModel.ISupportInitialize)(this.errBuscarProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errProducto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.SuspendLayout();
             // 
             // panelFormulario
@@ -105,6 +110,26 @@ namespace Proyecto
             this.panelFormulario.Name = "panelFormulario";
             this.panelFormulario.Size = new System.Drawing.Size(300, 250);
             this.panelFormulario.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(150, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(124, 20);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Buscar Producto";
+            // 
+            // txtBuscarProducto
+            // 
+            this.txtBuscarProducto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtBuscarProducto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtBuscarProducto.Location = new System.Drawing.Point(143, 40);
+            this.txtBuscarProducto.Name = "txtBuscarProducto";
+            this.txtBuscarProducto.Size = new System.Drawing.Size(152, 20);
+            this.txtBuscarProducto.TabIndex = 0;
+            this.txtBuscarProducto.TextChanged += new System.EventHandler(this.txtBuscarProducto_TextChanged);
             // 
             // btnAgregarCarrito
             // 
@@ -135,7 +160,7 @@ namespace Proyecto
             this.lblCantidad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblCantidad.Location = new System.Drawing.Point(150, 125);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(58, 15);
+            this.lblCantidad.Size = new System.Drawing.Size(75, 20);
             this.lblCantidad.TabIndex = 2;
             this.lblCantidad.Text = "Cantidad:";
             // 
@@ -153,7 +178,7 @@ namespace Proyecto
             this.lblPrecioUnitario.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblPrecioUnitario.Location = new System.Drawing.Point(150, 70);
             this.lblPrecioUnitario.Name = "lblPrecioUnitario";
-            this.lblPrecioUnitario.Size = new System.Drawing.Size(93, 15);
+            this.lblPrecioUnitario.Size = new System.Drawing.Size(117, 20);
             this.lblPrecioUnitario.TabIndex = 4;
             this.lblPrecioUnitario.Text = "Precio Unitario:";
             // 
@@ -170,7 +195,7 @@ namespace Proyecto
             this.lblNombreProducto.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblNombreProducto.Location = new System.Drawing.Point(15, 125);
             this.lblNombreProducto.Name = "lblNombreProducto";
-            this.lblNombreProducto.Size = new System.Drawing.Size(110, 15);
+            this.lblNombreProducto.Size = new System.Drawing.Size(139, 20);
             this.lblNombreProducto.TabIndex = 6;
             this.lblNombreProducto.Text = "Nombre Producto:";
             // 
@@ -188,7 +213,7 @@ namespace Proyecto
             this.lblIdProducto.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblIdProducto.Location = new System.Drawing.Point(15, 70);
             this.lblIdProducto.Name = "lblIdProducto";
-            this.lblIdProducto.Size = new System.Drawing.Size(77, 15);
+            this.lblIdProducto.Size = new System.Drawing.Size(97, 20);
             this.lblIdProducto.TabIndex = 8;
             this.lblIdProducto.Text = "ID Producto:";
             // 
@@ -207,15 +232,17 @@ namespace Proyecto
             this.lblIdUsuario.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblIdUsuario.Location = new System.Drawing.Point(15, 15);
             this.lblIdUsuario.Name = "lblIdUsuario";
-            this.lblIdUsuario.Size = new System.Drawing.Size(68, 15);
+            this.lblIdUsuario.Size = new System.Drawing.Size(87, 20);
             this.lblIdUsuario.TabIndex = 10;
             this.lblIdUsuario.Text = "ID Usuario:";
             // 
             // dgvCarrito
             // 
+            this.dgvCarrito.ColumnHeadersHeight = 29;
             this.dgvCarrito.Location = new System.Drawing.Point(15, 40);
             this.dgvCarrito.Name = "dgvCarrito";
             this.dgvCarrito.ReadOnly = true;
+            this.dgvCarrito.RowHeadersWidth = 51;
             this.dgvCarrito.Size = new System.Drawing.Size(420, 150);
             this.dgvCarrito.TabIndex = 6;
             // 
@@ -271,7 +298,7 @@ namespace Proyecto
             this.txtTotalCompra.Location = new System.Drawing.Point(60, 207);
             this.txtTotalCompra.Name = "txtTotalCompra";
             this.txtTotalCompra.ReadOnly = true;
-            this.txtTotalCompra.Size = new System.Drawing.Size(100, 25);
+            this.txtTotalCompra.Size = new System.Drawing.Size(100, 30);
             this.txtTotalCompra.TabIndex = 2;
             // 
             // lblTotalCompra
@@ -280,7 +307,7 @@ namespace Proyecto
             this.lblTotalCompra.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblTotalCompra.Location = new System.Drawing.Point(15, 210);
             this.lblTotalCompra.Name = "lblTotalCompra";
-            this.lblTotalCompra.Size = new System.Drawing.Size(37, 15);
+            this.lblTotalCompra.Size = new System.Drawing.Size(48, 20);
             this.lblTotalCompra.TabIndex = 3;
             this.lblTotalCompra.Text = "Total:";
             // 
@@ -290,7 +317,7 @@ namespace Proyecto
             this.lblCantidadItems.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
             this.lblCantidadItems.Location = new System.Drawing.Point(100, 20);
             this.lblCantidadItems.Name = "lblCantidadItems";
-            this.lblCantidadItems.Size = new System.Drawing.Size(108, 15);
+            this.lblCantidadItems.Size = new System.Drawing.Size(136, 20);
             this.lblCantidadItems.TabIndex = 4;
             this.lblCantidadItems.Text = "0 items en el carrito";
             // 
@@ -300,7 +327,7 @@ namespace Proyecto
             this.lblCarrito.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblCarrito.Location = new System.Drawing.Point(15, 15);
             this.lblCarrito.Name = "lblCarrito";
-            this.lblCarrito.Size = new System.Drawing.Size(66, 21);
+            this.lblCarrito.Size = new System.Drawing.Size(82, 28);
             this.lblCarrito.TabIndex = 5;
             this.lblCarrito.Text = "Carrito:";
             // 
@@ -346,7 +373,7 @@ namespace Proyecto
             this.lblTicket.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblTicket.Location = new System.Drawing.Point(15, 15);
             this.lblTicket.Name = "lblTicket";
-            this.lblTicket.Size = new System.Drawing.Size(60, 21);
+            this.lblTicket.Size = new System.Drawing.Size(75, 28);
             this.lblTicket.TabIndex = 2;
             this.lblTicket.Text = "Ticket:";
             // 
@@ -370,29 +397,9 @@ namespace Proyecto
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblTitulo.Location = new System.Drawing.Point(12, 9);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(239, 30);
+            this.lblTitulo.Size = new System.Drawing.Size(294, 37);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "COMPRAS - CLIENTES";
-            // 
-            // txtBuscarProducto
-            // 
-            this.txtBuscarProducto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtBuscarProducto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.txtBuscarProducto.Location = new System.Drawing.Point(143, 40);
-            this.txtBuscarProducto.Name = "txtBuscarProducto";
-            this.txtBuscarProducto.Size = new System.Drawing.Size(152, 20);
-            this.txtBuscarProducto.TabIndex = 0;
-            this.txtBuscarProducto.TextChanged += new System.EventHandler(this.txtBuscarProducto_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(150, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 15);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Buscar Producto";
             // 
             // errBuscarProducto
             // 
@@ -406,9 +413,60 @@ namespace Proyecto
             // 
             this.errProducto.ContainerControl = this;
             // 
+            // dgvProductos
+            // 
+            this.dgvProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvProductos.BackgroundColor = System.Drawing.Color.White;
+            this.dgvProductos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvProductos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvProductos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(5);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvProductos.ColumnHeadersHeight = 40;
+            this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(5);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvProductos.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvProductos.EnableHeadersVisualStyles = false;
+            this.dgvProductos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.dgvProductos.Location = new System.Drawing.Point(791, 45);
+            this.dgvProductos.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvProductos.Name = "dgvProductos";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(5);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProductos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvProductos.RowHeadersWidth = 30;
+            this.dgvProductos.RowTemplate.Height = 35;
+            this.dgvProductos.Size = new System.Drawing.Size(478, 465);
+            this.dgvProductos.TabIndex = 14;
+            this.dgvProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductos_CellContentClick);
+            // 
             // frmClienteCompras
             // 
-            this.ClientSize = new System.Drawing.Size(849, 580);
+            this.ClientSize = new System.Drawing.Size(1293, 580);
+            this.Controls.Add(this.dgvProductos);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.btnFinalizarCompra);
             this.Controls.Add(this.panelTicket);
@@ -427,6 +485,7 @@ namespace Proyecto
             ((System.ComponentModel.ISupportInitialize)(this.errBuscarProducto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errCantidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errProducto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,5 +496,6 @@ namespace Proyecto
         private ErrorProvider errBuscarProducto;
         private ErrorProvider errCantidad;
         private ErrorProvider errProducto;
+        private DataGridView dgvProductos;
     }
 }

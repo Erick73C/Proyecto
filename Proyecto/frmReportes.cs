@@ -1,12 +1,6 @@
 ﻿using Proyecto.Datos;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 
 namespace Proyecto
@@ -17,6 +11,7 @@ namespace Proyecto
         private clsReportes daoReportes;
         private Reporte reporteSeleccionado;
         #endregion
+
         #region Metodos auxiliares
         public frmReportes()
         {
@@ -31,13 +26,15 @@ namespace Proyecto
             LimpiarFormulario();
             ConfigurarComboBoxTipo();
         }
+
         private void ConfigurarComboBoxTipo()
         {
             cmbTipoReporte.Items.Clear();
-            cmbTipoReporte.Items.Add("Venta");
-            cmbTipoReporte.Items.Add("Compra");
-            cmbTipoReporte.Items.Add("Devolucion");
+            cmbTipoReporte.Items.Add("venta");
+            cmbTipoReporte.Items.Add("compra");
+            cmbTipoReporte.Items.Add("devolución");
         }
+
         private void CargarReportes()
         {
             try
@@ -52,6 +49,7 @@ namespace Proyecto
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void ConfigurarDataGridView()
         {
             if (dgvReportes.Columns.Count > 0)
@@ -68,6 +66,7 @@ namespace Proyecto
                 dgvReportes.Columns["FechaReporte"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
             }
         }
+
         private void LimpiarFormulario()
         {
             txtIdReporte.Clear();
@@ -79,6 +78,7 @@ namespace Proyecto
             btnGuardar.Text = "Guardar";
             btnEliminar.Enabled = false;
         }
+
         private bool ValidarDatos()
         {
             if (string.IsNullOrWhiteSpace(txtIdUsuario.Text))
@@ -117,6 +117,7 @@ namespace Proyecto
             return true;
         }
         #endregion
+
         #region Elementos de  UI
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -248,7 +249,9 @@ namespace Proyecto
 
             try
             {
-                var reportes = daoReportes.ObtenerPorTipo(cmbTipoReporte.SelectedItem.ToString());
+                string tipo = cmbTipoReporte.SelectedItem.ToString().ToLower();
+
+                var reportes = daoReportes.ObtenerPorTipo(tipo);
                 dgvReportes.DataSource = reportes;
                 ConfigurarDataGridView();
             }

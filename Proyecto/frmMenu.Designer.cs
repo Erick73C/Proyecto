@@ -53,7 +53,7 @@
             this.btnCrud1.Margin = new System.Windows.Forms.Padding(4);
             this.btnCrud1.Name = "btnCrud1";
             this.btnCrud1.Size = new System.Drawing.Size(180, 45);
-            this.btnCrud1.TabIndex = 0;
+            this.btnCrud1.TabIndex = 1;
             this.btnCrud1.Text = "Gestión Usuarios";
             this.btnCrud1.UseVisualStyleBackColor = false;
             this.btnCrud1.Click += new System.EventHandler(this.btnCrud1_Click);
@@ -70,7 +70,7 @@
             this.btnCrud2.Margin = new System.Windows.Forms.Padding(4);
             this.btnCrud2.Name = "btnCrud2";
             this.btnCrud2.Size = new System.Drawing.Size(180, 45);
-            this.btnCrud2.TabIndex = 1;
+            this.btnCrud2.TabIndex = 2;
             this.btnCrud2.Text = "Gestión Productos";
             this.btnCrud2.UseVisualStyleBackColor = false;
             this.btnCrud2.Click += new System.EventHandler(this.btnCrud2_Click);
@@ -87,7 +87,7 @@
             this.btnCrud3.Margin = new System.Windows.Forms.Padding(4);
             this.btnCrud3.Name = "btnCrud3";
             this.btnCrud3.Size = new System.Drawing.Size(180, 45);
-            this.btnCrud3.TabIndex = 2;
+            this.btnCrud3.TabIndex = 3;
             this.btnCrud3.Text = "Gestión Ventas";
             this.btnCrud3.UseVisualStyleBackColor = false;
             this.btnCrud3.Click += new System.EventHandler(this.btnCrud3_Click);
@@ -123,7 +123,7 @@
             this.btnCompra.Margin = new System.Windows.Forms.Padding(4);
             this.btnCompra.Name = "btnCompra";
             this.btnCompra.Size = new System.Drawing.Size(180, 64);
-            this.btnCompra.TabIndex = 6;
+            this.btnCompra.TabIndex = 0;
             this.btnCompra.Text = "Realizar compra";
             this.btnCompra.UseVisualStyleBackColor = false;
             this.btnCompra.Click += new System.EventHandler(this.btnCompra_Click);
@@ -139,7 +139,7 @@
             this.btnReportes.Margin = new System.Windows.Forms.Padding(4);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(180, 64);
-            this.btnReportes.TabIndex = 5;
+            this.btnReportes.TabIndex = 4;
             this.btnReportes.Text = "Productos";
             this.btnReportes.UseVisualStyleBackColor = false;
             this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
@@ -154,7 +154,7 @@
             this.btnCerrarSesion.Margin = new System.Windows.Forms.Padding(4);
             this.btnCerrarSesion.Name = "btnCerrarSesion";
             this.btnCerrarSesion.Size = new System.Drawing.Size(180, 40);
-            this.btnCerrarSesion.TabIndex = 4;
+            this.btnCerrarSesion.TabIndex = 5;
             this.btnCerrarSesion.Text = "Cerrar Sesión";
             this.btnCerrarSesion.UseVisualStyleBackColor = false;
             this.btnCerrarSesion.Click += new System.EventHandler(this.btnCerrarSesion_Click);

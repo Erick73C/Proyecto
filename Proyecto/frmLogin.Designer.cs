@@ -70,9 +70,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtUsuario.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.txtUsuario.Location = new System.Drawing.Point(150, 80);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(150, 25);
+            this.txtUsuario.Size = new System.Drawing.Size(150, 30);
             this.txtUsuario.TabIndex = 3;
             this.txtUsuario.UseSystemPasswordChar = true;
             this.txtUsuario.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
@@ -104,7 +105,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblTitulo.Location = new System.Drawing.Point(103, 25);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(154, 25);
+            this.lblTitulo.Size = new System.Drawing.Size(196, 32);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "INICIAR SESIÓN";
             // 
@@ -118,7 +119,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label1.Location = new System.Drawing.Point(50, 80);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 19);
+            this.label1.Size = new System.Drawing.Size(72, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "Usuario:";
             // 
@@ -132,7 +133,7 @@
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label2.Location = new System.Drawing.Point(50, 130);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 19);
+            this.label2.Size = new System.Drawing.Size(101, 23);
             this.label2.TabIndex = 2;
             this.label2.Text = "Contraseña:";
             // 
@@ -146,7 +147,7 @@
             this.txtContrasenia.Location = new System.Drawing.Point(150, 128);
             this.txtContrasenia.Name = "txtContrasenia";
             this.txtContrasenia.PasswordChar = '*';
-            this.txtContrasenia.Size = new System.Drawing.Size(150, 25);
+            this.txtContrasenia.Size = new System.Drawing.Size(150, 30);
             this.txtContrasenia.TabIndex = 4;
             this.txtContrasenia.UseSystemPasswordChar = true;
             // 

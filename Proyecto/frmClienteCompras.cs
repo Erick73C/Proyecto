@@ -13,6 +13,7 @@ namespace Proyecto
 {
     public partial class frmClienteCompras : Form
     {
+        private clsDaoProductos daoProductos = new clsDaoProductos();
         #region variables globales
         private clsReportes daoReportes;
         private List<DetalleCompra> carrito;
@@ -36,12 +37,27 @@ namespace Proyecto
             ActualizarCarrito();
             ConfigurarDataGridViews();
             CompletadoDeProductos();
-
+            MostrarProductos();
+            dgvProductos.Enabled = false;
             txtIdProducto.ReadOnly = true;
             txtNombreProducto.ReadOnly = true;
             txtPrecioUnitario.ReadOnly = true;
 
         }
+        private void MostrarProductos()
+        {
+            try
+            {
+                var lista = daoProductos.ObtenerProductos();
+                dgvProductos.DataSource = lista;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los productos: " + ex.Message);
+            }
+        }
+
+
         private void ConfigurarDataGridViews()
         {
             // Configurar dgvCarrito
@@ -403,9 +419,13 @@ namespace Proyecto
                 txtPrecioUnitario.Text = producto.PrecioUnitario.ToString("0.00");
             }
         }
+
         #endregion
 
+        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
+        }
     }
 
     public class DetalleCompra
