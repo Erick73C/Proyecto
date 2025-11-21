@@ -358,13 +358,6 @@ namespace Proyecto
                 return;
             }
 
-            // Verificar si el usuario ya existe
-            if (daoUsuarios.ExisteUsuario(txtUsuario.Text))
-            {
-                MessageBox.Show("El usuario ya existe. Intenta con otro nombre.");
-                return;
-            }
-
             Usuario u = new Usuario
             {
                 IdUsuario = string.IsNullOrWhiteSpace(txtIdUsuario.Text) ? 0 : int.Parse(txtIdUsuario.Text),

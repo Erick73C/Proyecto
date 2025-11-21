@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelFormulario = new System.Windows.Forms.Panel();
             this.cmbTipoReporte = new System.Windows.Forms.ComboBox();
             this.lblTotal = new System.Windows.Forms.Label();
@@ -45,7 +45,10 @@
             this.txtIdReporte = new System.Windows.Forms.TextBox();
             this.dgvReportes = new System.Windows.Forms.DataGridView();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnBucarPorReporte = new System.Windows.Forms.Button();
+            this.btnBuscarPorProducto = new System.Windows.Forms.Button();
             this.btnMostrarTodos = new System.Windows.Forms.Button();
+            this.btnBuscarporID = new System.Windows.Forms.Button();
             this.btnBuscarPorTipo = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
@@ -56,9 +59,6 @@
             this.errCantidad = new System.Windows.Forms.ErrorProvider(this.components);
             this.errTotal = new System.Windows.Forms.ErrorProvider(this.components);
             this.errTipoReporte = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnBuscarporID = new System.Windows.Forms.Button();
-            this.btnBuscarPorProducto = new System.Windows.Forms.Button();
-            this.btnBucarPorReporte = new System.Windows.Forms.Button();
             this.panelFormulario.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReportes)).BeginInit();
             this.panelBotones.SuspendLayout();
@@ -87,7 +87,7 @@
             this.panelFormulario.Location = new System.Drawing.Point(7, 52);
             this.panelFormulario.Margin = new System.Windows.Forms.Padding(2);
             this.panelFormulario.Name = "panelFormulario";
-            this.panelFormulario.Size = new System.Drawing.Size(281, 293);
+            this.panelFormulario.Size = new System.Drawing.Size(248, 315);
             this.panelFormulario.TabIndex = 12;
             // 
             // cmbTipoReporte
@@ -99,7 +99,7 @@
             this.cmbTipoReporte.Location = new System.Drawing.Point(16, 179);
             this.cmbTipoReporte.Margin = new System.Windows.Forms.Padding(2);
             this.cmbTipoReporte.Name = "cmbTipoReporte";
-            this.cmbTipoReporte.Size = new System.Drawing.Size(196, 31);
+            this.cmbTipoReporte.Size = new System.Drawing.Size(196, 25);
             this.cmbTipoReporte.TabIndex = 3;
             // 
             // lblTotal
@@ -110,7 +110,7 @@
             this.lblTotal.Location = new System.Drawing.Point(16, 211);
             this.lblTotal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(48, 20);
+            this.lblTotal.Size = new System.Drawing.Size(37, 15);
             this.lblTotal.TabIndex = 12;
             this.lblTotal.Text = "Total:";
             this.lblTotal.Visible = false;
@@ -123,7 +123,7 @@
             this.lblCantidad.Location = new System.Drawing.Point(16, 162);
             this.lblCantidad.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(44, 20);
+            this.lblCantidad.Size = new System.Drawing.Size(34, 15);
             this.lblCantidad.TabIndex = 11;
             this.lblCantidad.Text = "Tipo:";
             // 
@@ -135,7 +135,7 @@
             this.lblIdProducto.Location = new System.Drawing.Point(16, 65);
             this.lblIdProducto.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIdProducto.Name = "lblIdProducto";
-            this.lblIdProducto.Size = new System.Drawing.Size(97, 20);
+            this.lblIdProducto.Size = new System.Drawing.Size(77, 15);
             this.lblIdProducto.TabIndex = 9;
             this.lblIdProducto.Text = "ID Producto:";
             // 
@@ -147,7 +147,7 @@
             this.lblIdUsuario.Location = new System.Drawing.Point(16, 16);
             this.lblIdUsuario.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIdUsuario.Name = "lblIdUsuario";
-            this.lblIdUsuario.Size = new System.Drawing.Size(87, 20);
+            this.lblIdUsuario.Size = new System.Drawing.Size(68, 15);
             this.lblIdUsuario.TabIndex = 8;
             this.lblIdUsuario.Text = "ID Usuario:";
             // 
@@ -159,7 +159,7 @@
             this.lblIdReporte.Location = new System.Drawing.Point(16, 114);
             this.lblIdReporte.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblIdReporte.Name = "lblIdReporte";
-            this.lblIdReporte.Size = new System.Drawing.Size(89, 20);
+            this.lblIdReporte.Size = new System.Drawing.Size(72, 15);
             this.lblIdReporte.TabIndex = 7;
             this.lblIdReporte.Text = "ID Reporte:";
             // 
@@ -171,7 +171,7 @@
             this.txtTotal.Location = new System.Drawing.Point(16, 228);
             this.txtTotal.Margin = new System.Windows.Forms.Padding(2);
             this.txtTotal.Name = "txtTotal";
-            this.txtTotal.Size = new System.Drawing.Size(196, 30);
+            this.txtTotal.Size = new System.Drawing.Size(196, 25);
             this.txtTotal.TabIndex = 4;
             this.txtTotal.Visible = false;
             this.txtTotal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTotal_KeyPress);
@@ -184,7 +184,7 @@
             this.txtIdProducto.Location = new System.Drawing.Point(16, 81);
             this.txtIdProducto.Margin = new System.Windows.Forms.Padding(2);
             this.txtIdProducto.Name = "txtIdProducto";
-            this.txtIdProducto.Size = new System.Drawing.Size(196, 30);
+            this.txtIdProducto.Size = new System.Drawing.Size(196, 25);
             this.txtIdProducto.TabIndex = 1;
             this.txtIdProducto.TextChanged += new System.EventHandler(this.txtIdProducto_TextChanged);
             this.txtIdProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdProducto_KeyPress);
@@ -197,7 +197,7 @@
             this.txtIdUsuario.Location = new System.Drawing.Point(16, 32);
             this.txtIdUsuario.Margin = new System.Windows.Forms.Padding(2);
             this.txtIdUsuario.Name = "txtIdUsuario";
-            this.txtIdUsuario.Size = new System.Drawing.Size(196, 30);
+            this.txtIdUsuario.Size = new System.Drawing.Size(196, 25);
             this.txtIdUsuario.TabIndex = 0;
             this.txtIdUsuario.TextChanged += new System.EventHandler(this.txtIdUsuario_TextChanged);
             this.txtIdUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdUsuario_KeyPress);
@@ -210,7 +210,7 @@
             this.txtIdReporte.Location = new System.Drawing.Point(16, 130);
             this.txtIdReporte.Margin = new System.Windows.Forms.Padding(2);
             this.txtIdReporte.Name = "txtIdReporte";
-            this.txtIdReporte.Size = new System.Drawing.Size(196, 30);
+            this.txtIdReporte.Size = new System.Drawing.Size(196, 25);
             this.txtIdReporte.TabIndex = 5;
             this.txtIdReporte.TextChanged += new System.EventHandler(this.txtIdReporte_TextChanged);
             this.txtIdReporte.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdReporte_KeyPress);
@@ -225,43 +225,43 @@
             this.dgvReportes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvReportes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvReportes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.Padding = new System.Windows.Forms.Padding(5);
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(5);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvReportes.ColumnHeadersHeight = 40;
             this.dgvReportes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle20.Padding = new System.Windows.Forms.Padding(5);
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvReportes.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(5);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvReportes.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvReportes.EnableHeadersVisualStyles = false;
             this.dgvReportes.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.dgvReportes.Location = new System.Drawing.Point(245, 52);
+            this.dgvReportes.Location = new System.Drawing.Point(259, 52);
             this.dgvReportes.Margin = new System.Windows.Forms.Padding(2);
             this.dgvReportes.Name = "dgvReportes";
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle21.Padding = new System.Windows.Forms.Padding(5);
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvReportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(5);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvReportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvReportes.RowHeadersWidth = 30;
             this.dgvReportes.RowTemplate.Height = 35;
-            this.dgvReportes.Size = new System.Drawing.Size(561, 300);
+            this.dgvReportes.Size = new System.Drawing.Size(584, 315);
             this.dgvReportes.TabIndex = 13;
             this.dgvReportes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReportes_CellClick);
             // 
@@ -277,11 +277,41 @@
             this.panelBotones.Controls.Add(this.btnLimpiar);
             this.panelBotones.Controls.Add(this.btnEliminar);
             this.panelBotones.Controls.Add(this.btnGuardar);
-            this.panelBotones.Location = new System.Drawing.Point(7, 366);
+            this.panelBotones.Location = new System.Drawing.Point(7, 371);
             this.panelBotones.Margin = new System.Windows.Forms.Padding(2);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(717, 88);
+            this.panelBotones.Size = new System.Drawing.Size(830, 105);
             this.panelBotones.TabIndex = 14;
+            // 
+            // btnBucarPorReporte
+            // 
+            this.btnBucarPorReporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(89)))), ((int)(((byte)(182)))));
+            this.btnBucarPorReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBucarPorReporte.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnBucarPorReporte.ForeColor = System.Drawing.Color.White;
+            this.btnBucarPorReporte.Location = new System.Drawing.Point(498, 51);
+            this.btnBucarPorReporte.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBucarPorReporte.Name = "btnBucarPorReporte";
+            this.btnBucarPorReporte.Size = new System.Drawing.Size(216, 37);
+            this.btnBucarPorReporte.TabIndex = 17;
+            this.btnBucarPorReporte.Text = "BUSCAR POR ID REPORTE";
+            this.btnBucarPorReporte.UseVisualStyleBackColor = false;
+            this.btnBucarPorReporte.Click += new System.EventHandler(this.btnBucarPorReporte_Click);
+            // 
+            // btnBuscarPorProducto
+            // 
+            this.btnBuscarPorProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(89)))), ((int)(((byte)(182)))));
+            this.btnBuscarPorProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscarPorProducto.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnBuscarPorProducto.ForeColor = System.Drawing.Color.White;
+            this.btnBuscarPorProducto.Location = new System.Drawing.Point(263, 51);
+            this.btnBuscarPorProducto.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBuscarPorProducto.Name = "btnBuscarPorProducto";
+            this.btnBuscarPorProducto.Size = new System.Drawing.Size(216, 37);
+            this.btnBuscarPorProducto.TabIndex = 16;
+            this.btnBuscarPorProducto.Text = "BUSCAR POR ID PRODUCTO";
+            this.btnBuscarPorProducto.UseVisualStyleBackColor = false;
+            this.btnBuscarPorProducto.Click += new System.EventHandler(this.btnBuscarPorProducto_Click);
             // 
             // btnMostrarTodos
             // 
@@ -297,6 +327,21 @@
             this.btnMostrarTodos.Text = "MOSTRAR TODOS";
             this.btnMostrarTodos.UseVisualStyleBackColor = false;
             this.btnMostrarTodos.Click += new System.EventHandler(this.btnMostrarTodos_Click);
+            // 
+            // btnBuscarporID
+            // 
+            this.btnBuscarporID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(89)))), ((int)(((byte)(182)))));
+            this.btnBuscarporID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscarporID.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnBuscarporID.ForeColor = System.Drawing.Color.White;
+            this.btnBuscarporID.Location = new System.Drawing.Point(4, 51);
+            this.btnBuscarporID.Margin = new System.Windows.Forms.Padding(2);
+            this.btnBuscarporID.Name = "btnBuscarporID";
+            this.btnBuscarporID.Size = new System.Drawing.Size(221, 37);
+            this.btnBuscarporID.TabIndex = 5;
+            this.btnBuscarporID.Text = "BUSCAR POR ID USUARIO";
+            this.btnBuscarporID.UseVisualStyleBackColor = false;
+            this.btnBuscarporID.Click += new System.EventHandler(this.btnBuscarporID_Click);
             // 
             // btnBuscarPorTipo
             // 
@@ -366,7 +411,7 @@
             this.lblTitulo.Location = new System.Drawing.Point(9, 7);
             this.lblTitulo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(269, 37);
+            this.lblTitulo.Size = new System.Drawing.Size(221, 30);
             this.lblTitulo.TabIndex = 15;
             this.lblTitulo.Text = "GESTIÓN REPORTES";
             // 
@@ -390,56 +435,11 @@
             // 
             this.errTipoReporte.ContainerControl = this;
             // 
-            // btnBuscarporID
-            // 
-            this.btnBuscarporID.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(165)))), ((int)(((byte)(166)))));
-            this.btnBuscarporID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscarporID.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnBuscarporID.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarporID.Location = new System.Drawing.Point(4, 51);
-            this.btnBuscarporID.Margin = new System.Windows.Forms.Padding(2);
-            this.btnBuscarporID.Name = "btnBuscarporID";
-            this.btnBuscarporID.Size = new System.Drawing.Size(221, 37);
-            this.btnBuscarporID.TabIndex = 5;
-            this.btnBuscarporID.Text = "BUSCAR POR ID USUARIO";
-            this.btnBuscarporID.UseVisualStyleBackColor = false;
-            this.btnBuscarporID.Click += new System.EventHandler(this.btnBuscarporID_Click);
-            // 
-            // btnBuscarPorProducto
-            // 
-            this.btnBuscarPorProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(165)))), ((int)(((byte)(166)))));
-            this.btnBuscarPorProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscarPorProducto.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnBuscarPorProducto.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarPorProducto.Location = new System.Drawing.Point(263, 51);
-            this.btnBuscarPorProducto.Margin = new System.Windows.Forms.Padding(2);
-            this.btnBuscarPorProducto.Name = "btnBuscarPorProducto";
-            this.btnBuscarPorProducto.Size = new System.Drawing.Size(216, 37);
-            this.btnBuscarPorProducto.TabIndex = 16;
-            this.btnBuscarPorProducto.Text = "BUSCAR POR ID PRODUCTO";
-            this.btnBuscarPorProducto.UseVisualStyleBackColor = false;
-            this.btnBuscarPorProducto.Click += new System.EventHandler(this.btnBuscarPorProducto_Click);
-            // 
-            // btnBucarPorReporte
-            // 
-            this.btnBucarPorReporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(165)))), ((int)(((byte)(166)))));
-            this.btnBucarPorReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBucarPorReporte.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnBucarPorReporte.ForeColor = System.Drawing.Color.White;
-            this.btnBucarPorReporte.Location = new System.Drawing.Point(498, 51);
-            this.btnBucarPorReporte.Margin = new System.Windows.Forms.Padding(2);
-            this.btnBucarPorReporte.Name = "btnBucarPorReporte";
-            this.btnBucarPorReporte.Size = new System.Drawing.Size(216, 37);
-            this.btnBucarPorReporte.TabIndex = 17;
-            this.btnBucarPorReporte.Text = "BUSCAR POR ID REPORTE";
-            this.btnBucarPorReporte.UseVisualStyleBackColor = false;
-            this.btnBucarPorReporte.Click += new System.EventHandler(this.btnBucarPorReporte_Click);
-            // 
             // frmReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 465);
+            this.ClientSize = new System.Drawing.Size(848, 487);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.dgvReportes);
